@@ -1,6 +1,24 @@
-<h1><%= @profile.name %></h1>
-<p><%= @profile.title %></p>
-<p><%= @profile.country %></p>
-<p><%= @profile.description %></p>
+<div>
+	<div class='columns'>
+		<div class='column'>
+			<%= image_tag @profile.image.variant(resize: "100x100") %>
+			<h1><%= @profile.name %></h1>
+			<p><%= @profile.title %></p>
+			<p><%= @profile.country %></p>
+		</div>
+		<div class='column'>	
+			<div class='columns is-multiline'>
+				<%= link_to('Edit', edit_profile_path(current_user.profile), class: 'column is-full') %>
+				<%= link_to('See connections', '#', class: 'column is-full') %>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class='columns'>
+		<p class='column'><%= @profile.description %></p>
+	</div>
+</div>
 
-<%= image_tag @profile.image %>
+				
+
+
