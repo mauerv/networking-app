@@ -1,6 +1,9 @@
 module ApplicationHelper
 	def shortify(string, characters)
-		"#{string[0, characters]}..."
+		if string.length > characters
+			"#{string[0, characters]}..."
+		else string
+		end
 	end
 
 	def bootstrap_pagination(collection)
