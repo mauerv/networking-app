@@ -1,3 +1,26 @@
-<% @profiles.each do |profile| %>
-	<p><%= profile.name %></p>
-<% end %>
+<div class='container'>
+	<%= bootstrap_pagination @profiles %>
+	<ul class='list-unstyled'>
+		<% @profiles.each do |profile| %>
+			<li class='list-item row align-items-center border-top border-botom pb-3'>
+				<div class='col-sm-10'>
+					<div class='row align-items-center'>
+						<%= link_to profile_path(profile) do %>
+							<%= image_tag profile.image.variant(resize: "100x100"), class: 'col-xs-4' %>
+						<% end %>
+						<div class='col-xs-8 ml-3'>
+							<%= link_to(profile.name, profile_path(profile), class: 'mb-0 text-primary font-weight-bold') %> 
+							<p class='mb-0'><%= profile.title %></p>
+						</div>
+					</div>
+				</div>
+				<div class='col-sm-2'>
+					<button class='btn btn-primary'>Connect</button>
+				</div>
+			</li>
+		<% end %>
+	</ul>
+	<%= bootstrap_pagination @profiles %>
+</div>
+
+		

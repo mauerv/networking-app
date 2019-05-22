@@ -31,6 +31,8 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 # Use ActiveStorage variant
 gem 'mini_magick', '~> 4.8'
+gem 'will_paginate', :git => 'https://github.com/mislav/will_paginate.git'
+gem 'bootstrap-will_paginate', '1.0.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 # Use Devise for user authentication  

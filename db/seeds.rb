@@ -1,6 +1,6 @@
 require 'uri'
 
-10.times do 
+99.times do 
 	user = User.create(
 		email: FFaker::Internet.email,
 		password: 'password',

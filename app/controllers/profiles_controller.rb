@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
 	def index
-    @profiles = Profile.all
+    @profiles = Profile.paginate(page: params[:page])
 	end
 
 	def show
