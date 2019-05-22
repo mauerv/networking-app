@@ -7,6 +7,7 @@
 		<div class='collapse navbar-collapse justify-content-end' id='navbarSupportedContent'>
 			<div class='navbar-nav'>
 				<% if user_signed_in? %>
+						<%= link_to('Explore Profiles', profiles_path, class: 'nav-link') %>
 						<%= link_to('Profile', profile_path(current_user.profile), class: 'nav-link') %>
 					</li>
 					<li class='nav-item'>
