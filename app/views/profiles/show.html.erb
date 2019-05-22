@@ -1,21 +1,21 @@
-<div>
-	<div class='columns'>
-		<div class='column'>
+<div class='container'>
+	<div class='row'>
+		<div class='col-xs-12 col-md-8'>
 			<%= image_tag @profile.image.variant(resize: "100x100") %>
 			<h1><%= @profile.name %></h1>
 			<p><%= @profile.title %></p>
 			<p><%= @profile.country %></p>
 		</div>
-		<div class='column'>	
-			<div class='columns is-multiline'>
-				<%= link_to('Edit', edit_profile_path(current_user.profile), class: 'column is-full') %>
-				<%= link_to('See connections', '#', class: 'column is-full') %>
-			</div>
+		<div class='col-xs-12 col-md-4'>
+			<%= link_to('Edit', edit_profile_path(current_user.profile), class: 'btn btn-primary') %>
+			<%= link_to('See connections', '#', class: 'btn btn-primary') %>
 		</div>
 	</div>
 	<hr>
-	<div class='columns'>
-		<p class='column'><%= @profile.description %></p>
+	<div class='row justify-content-center justify-content-md-start'>
+		<div class='col-11'>
+			<p><%= @profile.description %></p>
+		</div>
 	</div>
 </div>
 

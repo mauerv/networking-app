@@ -1,3 +1,4 @@
+// Global Styles
 html, body, #app {
     height: 100%;
 }
@@ -6,10 +7,16 @@ hr {
 	background-color: lightgrey;
 }
 
+// Component Wrapper Styles
 .landing-wrapper .jumbotron {
   text-align: center;	
 }
 
-.main-form-wrapper {
-	margin: 100px auto;
+.content {
+	margin: 50px auto 90px auto;
+}
+
+// Devise Styles
+.form-extra-links {
+	margin-top: 10px;
 }

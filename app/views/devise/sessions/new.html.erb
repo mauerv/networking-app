@@ -1,17 +1,17 @@
-<div class='container main-form-wrapper'>
+<div class='container'>
   <div class='row justify-content-center'>
-    <div class='col-sm-4'>
+    <div class='col-md-8 col-lg-6'>
       <h2>Log in</h2>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <div class="field form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
         </div>
 
-        <div class="field">
-          <%= f.label :password %><br />
-          <%= f.password_field :password, autocomplete: "current-password" %>
+        <div class="field form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
         </div>
 
         <% if devise_mapping.rememberable? %>
@@ -22,11 +22,12 @@
         <% end %>
 
         <div class="actions">
-          <%= f.submit "Log in" %>
+          <%= f.submit "Log in", class: 'btn btn-primary' %>
         </div>
       <% end %>
-
-      <%= render "devise/shared/links" %>
+      <div class='form-extra-links'>
+        <%= render "devise/shared/links" %>
+      </div>
     </div>
   </div>
 </div>
