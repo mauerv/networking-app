@@ -1,8 +1,15 @@
-@import 'variables';
-@import 'bulma/bulma';
-@import 'header';
-@import 'footer';
+html, body, #app {
+    height: 100%;
+}
 
 hr {
 	background-color: lightgrey;
+}
+
+.landing-wrapper .jumbotron {
+  text-align: center;	
+}
+
+.main-form-wrapper {
+	margin: 100px auto;
 }

@@ -4,7 +4,7 @@
     <title>OlegarioAngularApp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= stylesheet_link_tag    'application' %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>
@@ -13,12 +13,12 @@
   <body>
     <div id='app'>
       <%= render 'layouts/header' %>
-        <% if notice %>
-          <p class="notification is-success"><%= notice %></p>
-        <% end %>
-        <% if alert %>
-          <p class="notification is-warning"><%= alert %></p>
-        <% end %>
+      <% if notice %>
+        <div class="alert alert-success"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger"><%= alert %></div>
+      <% end %>
       <%= yield %>  
       <%= render 'layouts/footer' %>
     </div>
