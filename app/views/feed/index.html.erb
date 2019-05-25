@@ -1,0 +1,25 @@
+<div class='container'>
+	<h3>Connection Requests</h3>
+	<ul class='list-group'>
+		<% @connection_requests.each do |cr| %>
+			<li class='list-group-item'>
+				<div class='col-12 col-sm-10 d-flex'>
+					<%= image_tag cr.profile.image.variant(resize: "100x100") %>
+					<div class='d-flex align-items-center'>
+						<%= cr.profile.name %>
+						<%= cr.profile.title %>
+					</div>
+				</div>
+				<% if cr.request_message %>
+					<div class='offset-1 col-10 bg-light p-3 mt-2'>
+						<%= cr.request_message %> 
+					</div>
+				<% end %>
+				<div class='col-12 text-center mt-2'>
+					<button class='btn btn-primary'>Ignore</button>
+					<button class='btn btn-primary'>Accept</button>
+				</div>	
+			</li>	
+		<% end %>
+	</ul>
+</div>

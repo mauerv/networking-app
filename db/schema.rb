@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_23_193720) do
+ActiveRecord::Schema.define(version: 2019_05_23_235500) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -34,14 +34,18 @@ ActiveRecord::Schema.define(version: 2019_05_23_193720) do
   end
 
   create_table "connection_requests", force: :cascade do |t|
-    t.integer "requestor_id"
-    t.integer "receiver_id"
+    t.integer "profile_id"
+    t.integer "contact_id"
     t.string "request_message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["receiver_id"], name: "index_connection_requests_on_receiver_id"
-    t.index ["requestor_id", "receiver_id"], name: "index_connection_requests_on_requestor_id_and_receiver_id", unique: true
-    t.index ["requestor_id"], name: "index_connection_requests_on_requestor_id"
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.integer "profile_id"
+    t.integer "contact_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "profiles", force: :cascade do |t|
