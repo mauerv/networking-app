@@ -1,4 +1,9 @@
 <div class='container'>
+	<div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content"></div>
+		  </div>
+	</div>
 	<%= bootstrap_pagination @profiles %>
 	<ul class='list-unstyled'>
 		<% @profiles.each do |profile| %>
@@ -17,7 +22,7 @@
 					</div>
 				</div>
 				<div class='col-2'>
-					<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#request-modal'>Connect</button>
+					<%= link_to 'Connect', new_connection_request_path(contact_id: profile.id), remote: true, data: { target: '#modal-window', toggle: 'modal'}, class: 'btn btn-primary'  %>
 				</div>
 			</li>
 		<% end %>
