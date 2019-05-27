@@ -21,8 +21,9 @@
 					</div>
 				<% end %>
 				<div class='col-12 text-center mt-2'>
-					<button class='btn btn-primary'>Ignore</button>
-					<button class='btn btn-primary'>Accept</button>
+					<%= link_to 'Ignore',  connection_request_path(cr), method: :delete, class: 'btn btn-primary' %>
+					<%= link_to 'Accept', connection_request_path(cr),
+						method: :put, class: 'btn btn-primary' %>
 				</div>	
 			</li>	
 		<% end %>

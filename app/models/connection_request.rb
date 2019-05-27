@@ -6,7 +6,7 @@ class ConnectionRequest < ApplicationRecord
 	belongs_to :contact, class_name: 'Profile' 
 
 	def accept
-		profile.connections << contact
+		profile.contacts << contact
 		destroy
 	end
 end

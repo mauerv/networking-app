@@ -20,6 +20,22 @@ class ConnectionRequestsController < ApplicationController
     end
   end
 
+  def update
+    @connection_request = ConnectionRequest.find(params[:id])
+    @connection_request.accept
+    redirect_to root_path, notice: 'Invitation was accepted.' 
+  end
+
+  def destroy
+    @connection_request = ConnectionRequest.find(params[:id])
+
+    @connection_request.destroy
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Invitation was rejected.' }
+      format.json { head :no_content }
+    end
+  end
+
   private 
 
   def connection_request_params
