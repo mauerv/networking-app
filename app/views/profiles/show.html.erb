@@ -10,7 +10,7 @@
 			<% if current_user.profile == @profile %>
 				<%= link_to('Edit', edit_profile_path(current_user.profile), class: 'btn btn-primary') %>
 			<% end %>
-			<%= link_to('See connections', '#', class: 'btn btn-primary') %>
+			<%= link_to('See connections', contacts_path, class: 'btn btn-primary') %>
 		</div>
 	</div>
 	<hr>

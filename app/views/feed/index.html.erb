@@ -1,7 +1,12 @@
 <div class='container'>
-	<h3>Connection Requests</h3>
+	<div class='mb-3'>
+		<h3>Contacts</h3>
+		<%= link_to "See My Contacts (#{@profile.contacts.count})", contacts_path, class: 'btn btn-primary' %>
+	</div>
+
+	<h3>Invitations</h3>
 	<ul class='list-group'>
-		<% @connection_requests.each do |cr| %>
+		<% @profile.requestor_relationships.each do |cr| %>
 			<li class='list-group-item'>
 				<div class='col-12 col-sm-10 d-flex'>
 					<%= image_tag cr.profile.image.variant(resize: "100x100") %>
