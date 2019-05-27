@@ -11,7 +11,7 @@
 					</div>
 				</div>
 				<div class='col-12 text-center mt-2'>
-					<button class='btn btn-primary'>Remove</button>
+					<%= link_to 'Remove', contact_path(c), method: :delete, class: 'btn btn-primary' %>
 					<button class='btn btn-primary'>Message</button>
 				</div>	
 			</li>	

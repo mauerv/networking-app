@@ -5,7 +5,7 @@ class Connection < ApplicationRecord
 		end
 	end
 	after_destroy do |c|
-		reciprocal = Connection.find(:first, :conditions => { :contact_id => c.profile_id })
+		reciprocal = Connection.find_by(contact_id: c.profile_id)
 		reciprocal.destroy unless reciprocal.nil?
 	end
 

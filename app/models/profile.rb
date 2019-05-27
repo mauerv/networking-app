@@ -12,6 +12,10 @@ class Profile < ApplicationRecord
 
   has_many :connections, dependent: :destroy
   has_many :contacts, through: :connections
+
+  def remove_contact(contact)
+  	self.contacts.destroy(contact)
+  end	
 end
 
 

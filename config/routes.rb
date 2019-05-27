@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :contacts, only: [:index]
+  resources :contacts, only: [:index, :destroy]
 	resources :profiles
 	resources :connection_requests, only: [:new, :create, :destroy, :update]
   devise_for :users, path: '/', controllers: { registrations: "registrations" }

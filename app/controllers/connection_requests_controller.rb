@@ -1,4 +1,6 @@
 class ConnectionRequestsController < ApplicationController
+  before_action :set_connection_request, only: [:update, :destroy]
+  
   def new
   	@connection_request = ConnectionRequest.new()
   	@contact_id = params[:contact_id]
@@ -21,14 +23,11 @@ class ConnectionRequestsController < ApplicationController
   end
 
   def update
-    @connection_request = ConnectionRequest.find(params[:id])
     @connection_request.accept
     redirect_to root_path, notice: 'Invitation was accepted.' 
   end
 
   def destroy
-    @connection_request = ConnectionRequest.find(params[:id])
-
     @connection_request.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Invitation was rejected.' }
@@ -38,7 +37,11 @@ class ConnectionRequestsController < ApplicationController
 
   private 
 
-  def connection_request_params
-  	params.require(:connection_request).permit(:request_message, :contact_id, :profile_id)
-  end
+    def set_connection_request
+      @connection_request = ConnectionRequest.find(params[:id])
+    end
+
+    def connection_request_params
+    	params.require(:connection_request).permit(:request_message, :contact_id, :profile_id)
+    end
 end
