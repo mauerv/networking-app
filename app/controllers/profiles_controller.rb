@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
 	def index
     @profiles = Profile.paginate(page: params[:page])
+    @contacts = Profile.find(current_user.id).contacts
 	end
 
 	def show
