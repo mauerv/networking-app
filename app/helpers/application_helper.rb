@@ -1,8 +1,8 @@
 module ApplicationHelper
-	def shortify(string, characters)
-		if string.length > characters
-			"#{string[0, characters]}..."
-		else string
+	def shortify(str, chars)
+		if str.length > chars
+			"#{str[0, chars]}..."
+		else str
 		end
 	end
 
