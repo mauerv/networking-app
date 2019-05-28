@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-	resources :profiles
+	resources :profiles, only: [:index, :show, :edit, :update]
   resources :contacts, only: [:index, :destroy]
 	resources :connection_requests, only: [:new, :create, :update, :destroy ]
   
