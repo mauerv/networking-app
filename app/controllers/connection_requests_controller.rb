@@ -1,6 +1,9 @@
 class ConnectionRequestsController < ApplicationController
   before_action :set_connection_request, only: [:update, :destroy]
 
+  def index
+  end
+
   def new
   	@connection_request = ConnectionRequest.new()
   	@contact_id = params[:contact_id]
