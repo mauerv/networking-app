@@ -1,6 +1,6 @@
 require 'uri'
 
-# Default test user
+# Default test user.
 	test_user = User.create(
 		email: 'mauro@osn.global',
 		password: 'asdasd',
@@ -20,8 +20,8 @@ require 'uri'
 
 	test_user.profile.image.attach(io: file, filename: filename)
 
-# Faker Profiles	
-10.times do 
+# Faker Profiles.
+150.times do 
 	fake_user = User.create(
 		email: FFaker::Internet.email,
 		password: 'password',
@@ -40,18 +40,34 @@ require 'uri'
 	fake_user.profile.image.attach(io: file, filename: filename)
 end
 
-# Faking connections with test user
 message = 'Hello, I would like to be your contact.'
+i = 2
 
-ConnectionRequest.create(profile_id: test_user.id, contact_id: 2, request_message: message)
-ConnectionRequest.create(profile_id: test_user.id, contact_id: 3)
-ConnectionRequest.create(profile_id: 4, contact_id: test_user.id, request_message: message)
-ConnectionRequest.create(profile_id: 5, contact_id: test_user.id)
+# Create requests from test user to fake users.
+35.times do
+	# Alternate between containing and not containing request message.
+	if i.even?
+		ConnectionRequest.create(profile_id: test_user.id, contact_id: i, request_message: message)
+	else 
+		ConnectionRequest.create(profile_id: test_user.id, contact_id: i)	
+	end
+	i += 1
+end
 
-# Faking connection requests with test user.
-Connection.create(profile_id: test_user.id, contact_id: 6)
-Connection.create(profile_id: 6, contact_id: test_user.id)
-Connection.create(profile_id: test_user.id, contact_id: 7)
-Connection.create(profile_id: 7, contact_id: test_user.id)
-Connection.create(profile_id: test_user.id, contact_id: 8)
-Connection.create(profile_id: 8, contact_id: test_user.id)
+# Create requests from fake users to test user.
+35.times do
+	# Alternate between containing and not containing request message.
+	if i.even?
+		ConnectionRequest.create(profile_id: i, contact_id: test_user.id, request_message: message)
+	else
+		ConnectionRequest.create(profile_id: i, contact_id: test_user.id)
+	end
+	i += 1
+end
+
+# Faking user contacts
+35.times do
+	Connection.create(profile_id: test_user.id, contact_id: i)
+	Connection.create(profile_id: i, contact_id: test_user.id)
+	i += 1
+end

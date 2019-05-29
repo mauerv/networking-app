@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
   def index
-  	@contacts = Profile.find(current_user.id).contacts
+  	@contacts = Profile.find(current_user.id).contacts.paginate(page: params[:page])
   end
 
   def destroy

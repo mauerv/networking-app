@@ -6,6 +6,7 @@
 	</div>
 	<%= bootstrap_pagination @profiles %>
 	<ul class='list-unstyled'>
+		<p class='text-muted mb-0'>Showing <%= @profiles.length %> results</p>
 		<% @profiles.each do |profile| %>
 			<li class='list-item row no-gutters align-items-center border-top border-botom pb-3'>
 				<div class='col-10'>
@@ -18,6 +19,7 @@
 						<div class='col-9 col-sm-8 ml-sm-3'>
 							<%= link_to(profile.name, profile_path(profile), class: 'mb-0 text-primary font-weight-bold') %> 
 							<p class='mb-0 text-wrap'><%= shortify profile.title, 50 %></p>
+							<small class='mt-0'><p><%=profile.country %></p></small>
 						</div>
 					</div>
 				</div>

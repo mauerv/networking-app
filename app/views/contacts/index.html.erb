@@ -1,20 +1,28 @@
 <div class='container'>
 	<h3>Contacts</h3>
 	<ul class='list-group'>
+		<p class='text-muted mb-0'>Showing <%= @contacts.length %> results</p>
 		<% @contacts.each do |c| %>
-			<li class='list-group-item'>
-				<div class='col-12 col-sm-10 d-flex'>
-					<%= image_tag c.image.variant(resize: "100x100") %>
-					<div class='d-flex align-items-center'>
-						<%= c.name %>
-						<%= c.title %>
+			<li class='list-item row no-gutters align-items-center border-top border-botom pb-3'>
+				<div class='col-10'>
+					<div class='row no-gutters align-items-center'>
+						<div class='col-3 col-md-2'>
+							<%= link_to profile_path(c) do %>
+								<%= image_tag c.image.variant(resize: "100x100") %>
+							<% end %>
+						</div>
+						<div class='col-9 col-sm-8 ml-sm-3'>
+							<%= link_to(c.name, profile_path(c), class: 'mb-0 text-primary font-weight-bold h6') %> 
+							<p class='mb-0 text-wrap h6'><%= shortify c.title, 50 %></p>
+							<small class='mt-0'><p><%= c.country %></p></small>
+						</div>
 					</div>
 				</div>
-				<div class='col-12 text-center mt-2'>
-					<%= link_to 'Remove', contact_path(c), method: :delete, class: 'btn btn-primary' %>
-					<button class='btn btn-primary'>Message</button>
-				</div>	
-			</li>	
+				<div class='col-2'>
+					<%= link_to 'Email', '#/', class: 'btn btn-primary' %>
+				</div>
+			</li>
 		<% end %>
 	</ul>
+	<%= bootstrap_pagination @contacts %>
 </div>
