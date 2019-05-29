@@ -10,19 +10,20 @@ class ProfilesController < ApplicationController
 	end
 
   def edit
-    if current_user.profile != @profile 
-      render(:file => File.join(Rails.root, 'public/403.html'), 
-             :status => 403, :layout => false)
-    end
+    head(403) if @profile.id != current_user.id 
   end
 
   def update
-  	if @profile.update(profile_params)
-      flash[:notice] = "Profile updated"
-      redirect_to @profile 
-  	else
-  		render 'edit'
-  	end
+    if @profile.id == current_user.id
+    	if @profile.update(profile_params)
+        flash[:notice] = "Profile updated"
+        redirect_to @profile 
+    	else
+    		render 'edit'
+    	end
+    else
+      head(403)
+    end
   end
 
 	private

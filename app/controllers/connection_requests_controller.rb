@@ -12,7 +12,7 @@ class ConnectionRequestsController < ApplicationController
 
   def create
   	@connection_request = ConnectionRequest.new(connection_request_params)
-    if requestor_is_current_user(@connection_request)
+    if @connection_request.profile_id = current_user.id
       if @connection_request.save
         flash[:notice] = "Request sent."
         redirect_to profiles_path
@@ -26,7 +26,7 @@ class ConnectionRequestsController < ApplicationController
   end
 
   def update
-    if requestor_is_current_user(@connection_request)
+    if @connection_request.contact_id == current_user.id
       @connection_request.accept
       redirect_to root_path, notice: 'Invitation was accepted.'  
     else
@@ -35,7 +35,7 @@ class ConnectionRequestsController < ApplicationController
   end
 
   def destroy
-    if requestor_is_current_user(@connection_request)    
+    if @connection_request.contact_id == current_user.id    
       @connection_request.destroy
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Invitation was rejected.' }
@@ -54,9 +54,5 @@ class ConnectionRequestsController < ApplicationController
 
     def connection_request_params
     	params.require(:connection_request).permit(:request_message, :contact_id, :profile_id)
-    end
-
-    def requestor_is_current_user(cr)
-      cr.profile_id == current_user.id
     end
 end
