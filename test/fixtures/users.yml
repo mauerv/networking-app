@@ -1,5 +1,9 @@
 mauro: 
   email: mauro@osn.global
+  password: password
+  password_confirmation: password
 
 emi: 
   email: emi@osn.global
+  password: password
+  password_confirmation: password
