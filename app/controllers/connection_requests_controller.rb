@@ -36,7 +36,8 @@ class ConnectionRequestsController < ApplicationController
   end
 
   def destroy
-    if @connection_request.contact_id == current_user.id    
+    if (@connection_request.contact_id == current_user.id ||
+        @connection_request.profile_id == current_user.id)    
       @connection_request.destroy
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Invitation was rejected.' }
