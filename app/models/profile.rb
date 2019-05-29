@@ -1,4 +1,8 @@
 class Profile < ApplicationRecord
+  validates :name, presence: true
+  validates :title, presence: true
+  validates :country, presence: true
+
   belongs_to :user
   has_one_attached :image
 

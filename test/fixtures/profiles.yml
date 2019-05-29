@@ -1,0 +1,17 @@
+mauro:
+  id: 1
+  user: mauro
+  name: Mauro Velazquez
+  title: CEO at Battlepro
+  country: Argentina
+  description: Non-stop entrepreneur and obsesive problem solver.
+
+emi:
+  id: 2
+  user: emi
+  name: Emi Velazquez
+  title: CRO at Battlepro
+  country: Argentina
+  description: I drink and I know things
+
+  
