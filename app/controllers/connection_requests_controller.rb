@@ -2,6 +2,7 @@ class ConnectionRequestsController < ApplicationController
   before_action :set_connection_request, only: [:update, :destroy]
 
   def index
+    @profile = Profile.find(current_user.id)
   end
 
   def new
