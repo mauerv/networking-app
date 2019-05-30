@@ -9,7 +9,9 @@
 			<% @profile.requestor_relationships[0...3].each do |cr| %>
 				<li class='list-group-item d-flex flex-column flex-md-row text-center text-md-left flex-md-wrap align-items-center'>
 					<div class='order-1'>
-						<%= image_tag cr.profile.image.variant(resize: "100x100") %>
+						<%= link_to profile_path(cr.profile) do %>
+							<%= image_tag cr.profile.image.variant(resize: "100x100") %>
+						<% end %>
 					</div>
 					<div class='order-2 mr-md-auto'>
 						<%= link_to(cr.profile.name, profile_path(cr.profile), class: 'text-primary font-weight-bold') %>
