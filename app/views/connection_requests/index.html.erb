@@ -47,7 +47,7 @@
 							<p class='subtitle-small'><%= req.contact.title %></p>
 						</div>
 						<div class='align-self-center'>
-						<button class='btn btn-primary'>Withdrawal</button>
+						<%= link_to 'Withdraw', "connection_requests/withdraw/#{req.id}", method: :delete, class: 'btn btn-primary' %>
 					</div>
 				</div>
 			</li>	

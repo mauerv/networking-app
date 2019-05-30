@@ -3,10 +3,16 @@ class ProfilesController < ApplicationController
 
   def index
     @profiles = Profile.paginate(page: params[:page])
-    @user_profile = Profile.find(current_user.id)
 	end
 
 	def show
+    user_init_req = @profile.requestor_relationships.select { 
+                      |req| (req.profile_id == current_user.id) 
+                    }.first
+    user_received_req = @profile.receiver_relationships.select {
+                          |req| (req.contact_id == current_user.id)
+                        }.first
+    @connection_request = user_init_req || user_received_req 
 	end
 
   def edit

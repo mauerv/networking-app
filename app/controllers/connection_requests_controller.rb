@@ -1,5 +1,5 @@
 class ConnectionRequestsController < ApplicationController
-  before_action :set_connection_request, only: [:update, :destroy]
+  before_action :set_connection_request, only: [:update, :destroy, :withdraw]
 
   def index
     @profile = Profile.find(current_user.id)
@@ -40,8 +40,7 @@ class ConnectionRequestsController < ApplicationController
   end
 
   def destroy
-    if (@connection_request.contact_id == current_user.id ||
-        @connection_request.profile_id == current_user.id)    
+    if (@connection_request.contact_id == current_user.id) 
       @connection_request.destroy
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Invitation was rejected.' }
@@ -50,6 +49,18 @@ class ConnectionRequestsController < ApplicationController
     else
       head(403)
     end 
+  end
+
+  def withdraw
+    if (@connection_request.profile_id == current_user.id)
+      @connection_request.destroy
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'Request was withdrawn.' }
+        format.json { head :no_content }
+      end
+    else
+      head(403)
+    end
   end
 
   private 
