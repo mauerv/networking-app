@@ -1,0 +1,17 @@
+<li class='list-group-item d-flex flex-md-row text-md-left flex-wrap border-right-0 border-left-0'>
+	<div class='order-1 mr-auto mr-md-0'>
+		<%= link_to profile_path(profile) do %>
+			<%= image_tag profile.image.variant(resize: "100x100") %>
+		<% end %>
+	</div>
+
+	<div class='order-3 order-md-2 mr-md-auto w-100 w-md-auto'>
+		<%= link_to(profile.name, profile_path(profile), class: 'mb-0 text-primary font-weight-bold') %> 
+		<p class='mb-0 text-wrap'><%= shortify profile.title, 50 %></p>
+		<small class='mt-0'><p><%=profile.country %></p></small>
+	</div>
+
+	<div class='order-2 order-md-3 align-self-center'>
+		<%= yield %>
+	</div>
+</li>

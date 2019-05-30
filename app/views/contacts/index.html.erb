@@ -3,22 +3,13 @@
 	<ul class='list-group'>
 		<p class='text-muted mb-0'>Showing <%= @contacts.length %> results</p>
 		<% @contacts.each do |c| %>
-			<li class='list-group-item d-flex flex-md-row text-md-left flex-wrap border-right-0 border-left-0'>
-				<div class='order-1 mr-auto mr-md-0'>
-					<%= link_to profile_path(c) do %>
-						<%= image_tag c.image.variant(resize: "100x100") %>
-					<% end %>
-				</div>
-				<div class='order-3 order-md-2 mr-md-auto'>
-					<%= link_to(c.name, profile_path(c), class: 'mb-0 text-primary font-weight-bold h6') %> 
-					<p class='mb-0 text-wrap h6'><%= shortify c.title, 50 %></p>
-					<small class='mt-0'><p><%= c.country %></p></small>
-				</div>
+			<%= render layout: '/shared/profile_list_item', locals: { profile: c } do %>
 				<div class='order-2 order-md-3 align-self-center'>
 					<%= link_to 'Email', '#/', class: 'btn btn-primary' %>
 				</div>
-			</li>
+			<% end %>
 		<% end %>
 	</ul>
 	<%= bootstrap_pagination @contacts %>
 </div>
+

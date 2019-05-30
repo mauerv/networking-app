@@ -11,53 +11,19 @@
 		<div class='tab-pane fade show active' id='received' role="tabpanel" aria-labelledby="received-tab">
 			<ul class='list-group'>
 				<% @profile.requestor_relationships.each do |req| %>
-					<li class='list-group-item d-flex flex-column flex-md-row text-center text-md-left flex-md-wrap align-items-center border-right-0 border-left-0'>
-						<div class='order-1 mr-md-0'>
-							<%= link_to profile_path(req.profile) do %>
-									<%= image_tag req.profile.image.variant(resize: "100x100") %>
-								<% end %>
-						</div>
-						<div class='order-2 mr-md-auto'>
-							<%= link_to(req.profile.name, profile_path(req.profile), class: 'text-primary font-weight-bold') %>
-							<p class='subtitle-small mb-0'><%= req.profile.title %></p>
-							<small><p class='text-muted mb-0'><%= req.profile.country %></p></small>
-						</div>
-						<% if req.request_message %>
-							<div class='order-3 order-md-4 w-100 bg-secondary p-3 rounded mt-md-2'>
-								<%= req.request_message %> 
-							</div>
-						<% end %>
-						<div class='mt-1 order-4 order-md-3'>
-							<%= link_to 'Ignore',  connection_request_path(req), method: :delete, class: 'btn btn-primary' %>
-							<%= link_to 'Accept', connection_request_path(req),
-								method: :put, class: 'btn btn-primary' %>
-						</div>	
-					</li>				
+					<%= render '/shared/request_list_item', req: req  %>
 				<% end %>
 			</ul>
 		</div>
 		<div class='tab-pane fade' id='sent' role="tabpanel" aria-labelledby="sent-tab">
 			<ul class='list-group'>
 				<% @profile.receiver_relationships.each do |req| %>
-					<li class='list-group-item d-flex flex-md-row text-md-left flex-wrap border-right-0 border-left-0'>
-
-						<div class='order-1 mr-auto mr-md-0'>
-							<%= link_to profile_path(req.contact) do %>
-								<%= image_tag req.contact.image.variant(resize: "100x100") %>
-							<% end %>
-						</div>
-
-						<div class='order-3 order-md-2 mr-md-auto w-100 w-md-auto'>
-							<%= link_to(req.contact.name, profile_path(req.contact), class: 'mb-0 text-primary font-weight-bold') %>
-							<p class='subtitle-small'><%= req.contact.title %></p>
-						</div>
-
-						<div class='order-2 order-md-3 align-self-center'>
-							<%= link_to 'Withdraw', "connection_requests/withdraw/#{req.id}", method: :delete, class: 'btn btn-primary' %>
-						</div>
-					</li>	
+					<%= render layout: '/shared/profile_list_item', locals: { profile: req.contact } do %>
+						<%= link_to 'Withdraw', "connection_requests/withdraw/#{req.id}", method: :delete, class: 'btn btn-primary' %>
+					<% end %>
 				<% end %>
 			</ul>
 		</div>
 	</div>
 </div>
+
