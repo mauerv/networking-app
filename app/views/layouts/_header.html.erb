@@ -15,11 +15,21 @@
 			<div class='navbar-nav'>
 				<% if user_signed_in? %>
 						<%= link_to('Explore Profiles', profiles_path, class: 'nav-link text-light') %>
-						<%= link_to('Profile', profile_path(current_user.profile), class: 'nav-link text-light') %>
 					</li>
-					<li class='nav-item'>
-						<%= link_to('Logout', destroy_user_session_path, method: :delete, class: 'nav-link text-light') %>
-					</li>
+
+		      <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          Settings
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  						<%= link_to('Profile', profile_path(current_user.profile), class: 'dropdown-item') %>
+  						<%= link_to('My Account', '/account', class: 'dropdown-item') %>
+		          <div class="dropdown-divider"></div>
+								<%= link_to('Logout', destroy_user_session_path, method: :delete, class: 'dropdown-item') %>
+		        </div>
+		      </li>
+
+
 				<% else %>
 					<li class='nav-item'>
 						<%= link_to('Login', new_user_session_path, class: 'nav-link text-light') %>

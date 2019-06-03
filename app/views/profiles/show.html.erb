@@ -6,7 +6,11 @@
 	</div>
 	<div class='row'>
 		<div class='col-xs-12 col-sm-6'>
-			<%= image_tag @profile.image.variant(resize: "100x100") %>
+			<% if @profile.image.attached? %>
+				<%= image_tag @profile.image.variant(resize: "100x100") %>
+			<% else %>
+				<%= image_tag 'placeholder_avatar.png', size: '100x100' %>
+			<% end %>
 			<h1><%= @profile.name %></h1>
 			<p><%= @profile.title %></p>
 			<p><%= @profile.country %></p>
@@ -20,6 +24,7 @@
 			<% else %>	
 				<div class='d-flex flex-sm-column align-items-sm-end justify-content-sm-between h-100 justify-content-between'>
 					<p class='text-primary rounded border border-primary p-2 ml-1 mb-0'>Connections (<%= @profile.contacts.length %>)</p>
+					<!-- Pasar a Vue.js -->
 					<div>
 						<% if current_user.profile.contacts.include?(@profile) %>
 							<%= link_to 'Email', '#/', class: 'btn btn-primary' %>
@@ -34,6 +39,7 @@
 							<%= link_to 'Connect', new_connection_request_path(contact_id: @profile.id), remote: true, data: { target: '#modal-window', toggle: 'modal'}, class: 'btn btn-primary' %>					
 						<% end %> 
 					</div>
+					<!-- Pasar a Vue.js -->
 				</div>
 			<% end %>
 		</div>

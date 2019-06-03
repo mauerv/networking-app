@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   end
 
   root 'static_pages#home'
+  get '/account', to: 'static_pages#account'
 end
