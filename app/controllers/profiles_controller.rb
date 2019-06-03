@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
 	before_action :set_profile, only: [:show, :edit, :update]
 
   def index
-    @profiles = Profile.paginate(page: params[:page])
+    @profiles = @q.result(distinct: true).paginate(page: params[:page])
 	end
 
 	def show
@@ -30,6 +30,11 @@ class ProfilesController < ApplicationController
     else
       head(403)
     end
+  end
+
+  def search
+    index
+    render :index
   end
 
 	private

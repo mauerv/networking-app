@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-	resources :profiles, only: [:index, :show, :edit, :update]
+	resources :profiles, only: [:index, :show, :edit, :update] do
+		collection do
+			match 'search' => 'profiles#search', via: [:get, :post], as: :search
+		end
+	end
   resources :contacts, only: [:index, :destroy]
 	resources :connection_requests, path: 'request-manager', only: [:index, :new, :create, :update, :destroy ]
   delete 'connection_requests/withdraw/:id', to: 'connection_requests#withdraw'

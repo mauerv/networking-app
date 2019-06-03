@@ -1,4 +1,17 @@
 GIT
+  remote: https://github.com/activerecord-hackery/ransack.git
+  revision: 6e6e610dcea3a5f8a724c933184bfab1420850d5
+  specs:
+    polyamorous (2.1.1)
+      activerecord (>= 5.0)
+    ransack (2.1.1)
+      actionpack (>= 5.0)
+      activerecord (>= 5.0)
+      activesupport (>= 5.0)
+      i18n
+      polyamorous (= 2.1.1)
+
+GIT
   remote: https://github.com/mislav/will_paginate.git
   revision: 63e84fb7e7508231ca83d94c524bfab5fbe9a578
   specs:
@@ -247,6 +260,7 @@ DEPENDENCIES
   mini_magick (~> 4.8)
   puma (~> 3.11)
   rails (~> 5.2.3)
+  ransack!
   sassc-rails (~> 2.1)
   selenium-webdriver
   spring
