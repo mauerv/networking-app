@@ -28,7 +28,7 @@
 					<div>
 						<% if current_user.profile.contacts.include?(@profile) %>
 							<%= link_to 'Email', '#/', class: 'btn btn-primary' %>
-							<%= link_to 'Remove', '#/', class: 'btn btn-primary' %>
+							<%= link_to('Remove', contact_path(@profile.id), method: :delete, class: 'btn btn-primary') %>
 						<% elsif current_user.profile.receivers.include?(@profile) %>
 							<%= link_to 'Withdraw', { controller: "connection_requests", action: "withdraw" }, id: @connection_request, method: :delete, class: 'btn btn-primary' %>
 						<% elsif current_user.profile.requestors.include?(@profile) %>
