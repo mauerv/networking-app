@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'test/home'
 	resources :profiles, only: [:index, :show, :edit, :update] do
 		collection do
 			match 'search' => 'profiles#search', via: [:get, :post], as: :search
