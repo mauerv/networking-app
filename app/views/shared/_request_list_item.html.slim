@@ -1,0 +1,21 @@
+li.list-group-item.d-flex.flex-column.flex-md-row.text-center.text-md-left.flex-md-wrap.align-items-center
+  .order-1
+    = link_to profile_path(req.profile) do
+      - if req.profile.image.attached?
+        = image_tag req.profile.image.variant(resize: "100x100"), class: 'mb-2'
+      - else
+        = image_tag 'placeholder_avatar.png', size: '100x100'
+  .order-2.mr-md-auto
+    = link_to(req.profile.name, profile_path(req.profile), class: 'text-primary font-weight-bold')
+    p.subtitle-small.mb-0
+      = req.profile.title
+    small
+    p.text-muted.mb-0
+      = req.profile.country
+  - if req.request_message
+    .order-3.order-md-4.w-100.bg-secondary.p-3.rounded.mt-md-2
+      = req.request_message
+  .mt-1.order-4.order-md-3
+    = link_to 'Ignore',  connection_request_path(req), method: :delete, class: 'btn btn-primary'
+    = link_to 'Accept', connection_request_path(req),
+    - method: :put, class: 'btn btn-primary'

@@ -1,0 +1,18 @@
+.container
+  ul.nav.nav-tabs
+    li.nav-item
+      a#received-tab.nav-link.active[data-toggle="tab" href="#received" role="tab" aria-controls="received" aria-selected="true"]
+        | Received
+    li.nav-item
+      a#sent-tab.nav-link[data-toggle="tab" href="#sent" role="tab" aria-controls="sent" aria-selected="false"]
+        | Sent
+  #myTabContent.tab-content
+    #received.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="received-tab"]
+      ul.list-group
+        - @profile.requestor_relationships.each do |req|
+          = render '/shared/request_list_item', req: req
+    #sent.tab-pane.fade[role="tabpanel" aria-labelledby="sent-tab"]
+      ul.list-group
+        - @profile.receiver_relationships.each do |req|
+          = render layout: '/shared/profile_list_item', locals: { profile: req.contact } do
+            = link_to 'Withdraw', "connection_requests/withdraw/#{req.id}", method: :delete, class: 'btn btn-primary'

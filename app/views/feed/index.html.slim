@@ -1,0 +1,16 @@
+.container
+	.mb-4
+		h3 Contacts
+		= link_to "See My Contacts (#{@profile.contacts.count})", contacts_path, class: 'btn btn-primary'
+	h3 Invitations
+	ul.list-group
+		- if @profile.requestor_relationships.length != 0
+			- @profile.requestor_relationships[0...3].each do |req| 
+				= render '/shared/request_list_item', req: req 
+			- if @profile.requestor_relationships.length > 3
+				= link_to "Manage All (#{@profile.requestor_relationships.length})", connection_requests_path, class: 'btn btn-primary d-flex flex-shrink mt-3 ml-auto mr-auto'
+		- else
+			li .list-group-item
+				p You have no pending invitations.
+				= link_to "Manage", connection_requests_path, class: 'btn btn-primary '
+

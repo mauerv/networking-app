@@ -1,0 +1,24 @@
+.container
+  .row.justify-content-center
+    .col-md-8.col-lg-6
+      h1 Update your profile
+      = form_for(@profile) do |f|
+        - if @profile.image.attached?
+          = image_tag @profile.image.variant(resize: "100x100"), class: 'mb-2'
+        - else
+          = image_tag 'placeholder_avatar.png', size: '100x100'
+        .form-group
+          = f.file_field :image, class: 'form-control-file'
+        .form-group
+          = f.label :name
+          = f.text_field :name, class: 'form-control'
+        .form-group
+          = f.label :title
+          = f.text_field :title, class: 'form-control'
+        .form-group
+          = f.label :country
+          = f.text_field :country, class: 'form-control'
+        .form-group
+          = f.label :description
+          = f.text_area :description, class: 'form-control'
+        = f.submit "Save changes", class: 'btn btn-primary'

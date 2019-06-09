@@ -1,0 +1,16 @@
+li.list-group-item.d-flex.flex-md-row.text-md-left.flex-wrap.border-right-0.border-left-0
+  .order-1.mr-auto.mr-md-0
+    = link_to profile_path(profile) do
+      - if profile.image.attached?
+        = image_tag profile.image.variant(resize: "100x100"), class: 'mb-2'
+      - else
+        = image_tag 'placeholder_avatar.png', size: '100x100'
+  .order-3.order-md-2.mr-md-auto.w-100.w-md-auto
+    = link_to(profile.name, profile_path(profile), class: 'mb-0 text-primary font-weight-bold')
+    p.mb-0.text-wrap
+      = shortify profile.title, 50
+    small.mt-0
+    p
+      = profile.country
+  .order-2.order-md-3.align-self-center
+    = yield
