@@ -17,5 +17,4 @@ li.list-group-item.d-flex.flex-column.flex-md-row.text-center.text-md-left.flex-
       = req.request_message
   .mt-1.order-4.order-md-3
     = link_to 'Ignore',  connection_request_path(req), method: :delete, class: 'btn btn-primary'
-    = link_to 'Accept', connection_request_path(req),
-    - method: :put, class: 'btn btn-primary'
+    = link_to 'Accept', connection_request_path(req), method: :put, class: 'btn btn-primary'
