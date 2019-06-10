@@ -1,4 +1,4 @@
-#profile.container data-request="#{@connection_request.to_json}" data-profile="#{@profile.to_json}" data-user="#{current_user.to_json( include: { profile: { include: [ :contacts, :receivers, :requestors ] } })}"
+#profile.container data-request="#{@connection_request.to_json(only: :id)}"data-profile="#{@profile.to_json(only: :id)}" data-user="#{@current_user.to_json(only: :id, include: { profile: { only: :id, include: [ {contacts: {only: :id}}, {receivers: {only: :id}}, {requestors: {only: :id}} ]}})}"
   .alert.alert-success v-if="notice !== ''"
     = p "{{ notice }}"
   #modal-window.modal.hide.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" 
