@@ -16,5 +16,6 @@
           button.btn.btn-primary.disabled Connect
         - elsif current_user.profile.requestors.include?(profile)
         - else
+        / Tengo que re-implementar porque elimine la accion del controller.
           = link_to 'Connect', new_connection_request_path(contact_id: profile.id), remote: true, data: { target: '#modal-window', toggle: 'modal'}, class: 'btn btn-primary'
   = bootstrap_pagination @profiles

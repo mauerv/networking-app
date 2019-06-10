@@ -16,6 +16,6 @@ html
         .alert.alert-success= notice
       - if alert
         .alert.alert-danger= alert
-      .content
+      .content data-behavior="vue"
         = yield
       = render 'layouts/footer'
