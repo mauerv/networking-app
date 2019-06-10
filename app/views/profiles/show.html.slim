@@ -1,27 +1,27 @@
-#profile.container data-request="#{@connection_request.to_json(only: :id)}"data-profile="#{@profile.to_json(only: :id)}" data-user="#{@current_user.to_json(only: :id, include: { profile: { only: :id, include: [ {contacts: {only: :id}}, {receivers: {only: :id}}, {requestors: {only: :id}} ]}})}"
-  .alert.alert-success v-if="notice !== ''"
+#profile.container data-request="#{@connection_request.to_json(only: :id)}"data-profile="#{@profile.to_json(only: :id)}" data-user="#{current_user.to_json(only: :id, include: { profile: { only: :id, include: [ {contacts: {only: :id}},{receivers: {only: :id}}, {requestors: {only: :id}} ]}})}"
+	.alert.alert-success v-if="notice !== ''"
     = p "{{ notice }}"
-  #modal-window.modal.hide.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" 
-    .modal-dialog role="document" 
-      .modal-content
-  .row
-    .col-xs-12.col-sm-6
-      - if @profile.image.attached?
-        = image_tag @profile.image.variant(resize: "100x100")
-      - else
-        = image_tag 'placeholder_avatar.png', size: '100x100'
-      h1= @profile.name
-      p= @profile.title
-      p= @profile.country
-    .col-xs-12.col-sm-6
-      .d-flex.justify-content-start.justify-content-sm-end v-if='current_user.profile.id === profile.id'
-        = link_to('Edit', edit_profile_path(current_user.profile), class: 'btn btn-primary')
-        = link_to("See Contacts (#{@profile.contacts.length})", contacts_path, class: 'btn btn-primary ml-1')
+	#modal-window.modal.hide.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" 
+	  .modal-dialog role="document" 
+	    .modal-content
+	.row
+	  .col-xs-12.col-sm-6
+	    - if @profile.image.attached?
+	      = image_tag @profile.image.variant(resize: "100x100")
+	    - else
+	      = image_tag 'placeholder_avatar.png', size: '100x100'
+	    h1= @profile.name
+	    p= @profile.title
+	    p= @profile.country
+	  .col-xs-12.col-sm-6
+	    .d-flex.justify-content-start.justify-content-sm-end v-if='current_user.profile.id === profile.id'
+	      = link_to('Edit', edit_profile_path(current_user.profile), class: 'btn btn-primary')
+	      = link_to("See Contacts (#{@profile.contacts.length})", contacts_path, class: 'btn btn-primary ml-1')
 
-      .d-flex.flex-sm-column.align-items-sm-end.justify-content-sm-between.h-100.justify-content-between v-else=''
-        p.text-primary.rounded.border.border-primary.p-2.ml-1.mb-0 
-          | Connections (#{@profile.contacts.length})
-        div
+	    .d-flex.flex-sm-column.align-items-sm-end.justify-content-sm-between.h-100.justify-content-between v-else=''
+	      p.text-primary.rounded.border.border-primary.p-2.ml-1.mb-0 
+	        | Connections (#{@profile.contacts.length})
+	      div
 					div v-if='isContact' 
 						= link_to 'Email', '#/', class: 'btn btn-primary'
 						button.btn.btn-primary @click="removeContact(profile.id)" Remove 
