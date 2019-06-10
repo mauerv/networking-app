@@ -5,6 +5,9 @@ class ContactsController < ApplicationController
 
   def destroy
   	Profile.find(current_user.id).remove_contact(Profile.find(params[:id]))
-  	redirect_to contacts_path, notice: 'Contact was deleted.'
+
+    respond_to do |format|
+      format.json { head :no_content }
+    end
   end
 end

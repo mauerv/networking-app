@@ -33,7 +33,9 @@ class ConnectionRequestsController < ApplicationController
   def update
     if @connection_request.contact_id == current_user.id
       @connection_request.accept
-      redirect_to root_path, notice: 'Invitation was accepted.'  
+      respond_to do |format|
+        format.json { head :no_content }
+      end
     else
       head(403)
     end 
@@ -43,7 +45,6 @@ class ConnectionRequestsController < ApplicationController
     if (@connection_request.contact_id == current_user.id) 
       @connection_request.destroy
       respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Invitation was rejected.' }
         format.json { head :no_content }
       end
     else
@@ -55,7 +56,6 @@ class ConnectionRequestsController < ApplicationController
     if (@connection_request.profile_id == current_user.id)
       @connection_request.destroy
       respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Request was withdrawn.' }
         format.json { head :no_content }
       end
     else

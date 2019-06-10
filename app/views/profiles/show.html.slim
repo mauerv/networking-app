@@ -1,4 +1,6 @@
-.container
+#profile.container data-request="#{@connection_request.to_json}" data-profile="#{@profile.to_json}" data-user="#{current_user.to_json( include: { profile: { include: [ :contacts, :receivers, :requestors ] } })}"
+  .alert.alert-success v-if="notice !== ''"
+    = p "{{ notice }}"
   #modal-window.modal.hide.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" 
     .modal-dialog role="document" 
       .modal-content
@@ -12,26 +14,23 @@
       p= @profile.title
       p= @profile.country
     .col-xs-12.col-sm-6
-      - if current_user.profile == @profile
-        .d-flex.justify-content-start.justify-content-sm-end
-          = link_to('Edit', edit_profile_path(current_user.profile), class: 'btn btn-primary')
-          = link_to("See Contacts (#{@profile.contacts.length})", contacts_path, class: 'btn btn-primary ml-1')
-      - else
-        .d-flex.flex-sm-column.align-items-sm-end.justify-content-sm-between.h-100.justify-content-between
-          p.text-primary.rounded.border.border-primary.p-2.ml-1.mb-0
-            | Connections (#{@profile.contacts.length})
-          div
-            - if current_user.profile.contacts.include?(@profile)
-              = link_to 'Email', '#/', class: 'btn btn-primary'
-              = link_to('Remove', contact_path(@profile.id), method: :delete, class: 'btn btn-primary')
-            - elsif current_user.profile.receivers.include?(@profile)
-              = link_to 'Withdraw', { controller: "connection_requests", action: "withdraw" }, id: @connection_request, method: :delete, class: 'btn btn-primary'
-            - elsif current_user.profile.requestors.include?(@profile)
-              = link_to 'Ignore',  connection_request_path(@connection_request), method: :delete, class: 'btn btn-primary'
-              = link_to 'Accept', connection_request_path(@connection_request), method: :put, class: 'btn btn-primary'               
-            - else
-              = link_to 'Connect', new_connection_request_path(contact_id: @profile.id), remote: true, data: { target: '#modal-window', toggle: 'modal'}, class: 'btn btn-primary'
-  hr.bg-secondary/
-  .row.justify-content-center.justify-content-md-start
-    .col-11
-      p= @profile.description
+      .d-flex.justify-content-start.justify-content-sm-end v-if='current_user.profile.id === profile.id'
+        = link_to('Edit', edit_profile_path(current_user.profile), class: 'btn btn-primary')
+        = link_to("See Contacts (#{@profile.contacts.length})", contacts_path, class: 'btn btn-primary ml-1')
+
+      .d-flex.flex-sm-column.align-items-sm-end.justify-content-sm-between.h-100.justify-content-between v-else=''
+        p.text-primary.rounded.border.border-primary.p-2.ml-1.mb-0 
+          | Connections (#{@profile.contacts.length})
+        div
+					div v-if='isContact' 
+						= link_to 'Email', '#/', class: 'btn btn-primary'
+						button.btn.btn-primary @click="removeContact(profile.id)" Remove 
+					div v-else-if='isReceiver'
+						button.btn.btn-primary @click="withdrawRequest(connection_request.id)" Withdraw
+					div v-else-if='isRequestor'
+						button.btn.btn-primary @click="declineRequest(connection_request.id)" Ignore
+						button.btn.btn-primary @click="acceptRequest(connection_request.id)" Accept        
+					div v-else=''
+					  = link_to 'Connect', new_connection_request_path(contact_id: @profile.id), remote: true, data: { target: '#modal-window', toggle: 'modal'}, class: 'btn btn-primary'              
+	hr.bg-secondary.row.justify-content-center.justify-content-md-start.col-11
+	  p= @profile.description
