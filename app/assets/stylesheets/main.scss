@@ -1,7 +1,21 @@
 .subtitle-small {
 	font-size: 0.85rem;
 }
-
 .content {
-	margin-bottom: 70px
+	margin-bottom: 70px;
+	margin-top: 50px;
+}
+#profile {
+	margin-top: 56px;
+}
+.alert-box {
+  position: absolute;
+  left: 0;
+  right: 0;	
+  top: 95px;
+}
+@media only screen and (min-width: 540px) {
+	.alert-box {
+	  top: 56px;
+	}
 }

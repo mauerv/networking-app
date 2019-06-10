@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
           return this.current_user.profile.receivers.filter(e => e.id === this.profile.id).length !== 0
         }
       },
+      watch: {
+     
+      },
       methods: { 
         sendRequest() {
           let data = {  

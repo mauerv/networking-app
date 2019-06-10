@@ -5,15 +5,6 @@ class ConnectionRequestsController < ApplicationController
     @profile = Profile.find(current_user.id)
   end
 
-  def new
-  	@connection_request = ConnectionRequest.new()
-  	@contact_id = params[:contact_id]
-  	respond_to do |format|
-  		format.html
-  		format.js
-  	end
-  end
-
   def create
   	@connection_request = ConnectionRequest.new(connection_request_params)
     if @connection_request.profile_id == current_user.id

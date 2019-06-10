@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 		end
 	end
   resources :contacts, only: [:index, :destroy]
-	resources :connection_requests, path: 'request-manager', only: [:index, :new, :create, :update, :destroy ]
+	resources :connection_requests, path: 'request-manager', only: [:index, :create, :update, :destroy ]
   delete 'request-manager/withdraw/:id', to: 'connection_requests#withdraw'
   devise_for :users, path: '/', controllers: { registrations: "registrations" }
  
