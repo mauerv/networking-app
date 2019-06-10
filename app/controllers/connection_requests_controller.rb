@@ -17,13 +17,12 @@ class ConnectionRequestsController < ApplicationController
   def create
   	@connection_request = ConnectionRequest.new(connection_request_params)
     if @connection_request.profile_id == current_user.id
-      if @connection_request.save
-        flash[:notice] = "Request sent."
-        redirect_to profiles_path
-      else
-        p @connection_request.errors
-        flash[:alert] = "Request not sent."
-        redirect_to profiles_path
+      respond_to do |format|
+        if @connection_request.save
+          format.json { render json: @connection_request, status: :created, location: @connection_request }
+        else
+          format.json { render json: @connection_request.errors, status: :unprocessable_entity }
+        end
       end
     else
       head(403)

@@ -1,9 +1,18 @@
 #profile.container data-request="#{@connection_request.to_json(only: :id)}"data-profile="#{@profile.to_json(only: :id)}" data-user="#{current_user.to_json(only: :id, include: { profile: { only: :id, include: [ {contacts: {only: :id}},{receivers: {only: :id}}, {requestors: {only: :id}} ]}})}"
 	.alert.alert-success v-if="notice !== ''"
-    = p "{{ notice }}"
+		= p "{{ notice }}"
 	#modal-window.modal.hide.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" 
-	  .modal-dialog role="document" 
-	    .modal-content
+		.modal-dialog role="document" 
+			.modal-content
+				.modal-header
+				  h4#myModalLabel.modal-title Send Request
+				  button.close[type="button" data-dismiss="modal"] x
+				.modal-body
+					.form
+						.form-group
+							label Add Optional Message
+							textarea.form-control v-model='request_message' 
+						button.btn.btn-primary @click="sendRequest" Send
 	.row
 	  .col-xs-12.col-sm-6
 	    - if @profile.image.attached?
@@ -31,6 +40,6 @@
 						button.btn.btn-primary @click="declineRequest(connection_request.id)" Ignore
 						button.btn.btn-primary @click="acceptRequest(connection_request.id)" Accept        
 					div v-else=''
-					  = link_to 'Connect', new_connection_request_path(contact_id: @profile.id), remote: true, data: { target: '#modal-window', toggle: 'modal'}, class: 'btn btn-primary'              
+						button.btn.btn-primary data-target="#modal-window" data-toggle="modal" Connect        
 	hr.bg-secondary.row.justify-content-center.justify-content-md-start.col-11
 	  p= @profile.description
