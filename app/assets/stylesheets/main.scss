@@ -8,14 +8,18 @@
 #profile {
 	margin-top: 56px;
 }
-.alert-box {
+.alert.alert-box {
   position: absolute;
   left: 0;
   right: 0;	
   top: 95px;
 }
+.avatar {
+	height: 100px;
+	width: 100px;	
+}
 @media only screen and (min-width: 540px) {
-	.alert-box {
+	.alert.alert-box {
 	  top: 56px;
 	}
 }

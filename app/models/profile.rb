@@ -1,4 +1,6 @@
 class Profile < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   belongs_to :user
   has_one_attached :image
 
@@ -16,6 +18,14 @@ class Profile < ApplicationRecord
   def remove_contact(contact)
   	self.contacts.destroy(contact)
   end	
+
+  def serializable_hash(options={}) 
+    if self.image.attached?
+      super(options).merge({"image_url": rails_blob_url(self.image)})
+    else
+      super(options)
+    end
+  end
 end
 
 
