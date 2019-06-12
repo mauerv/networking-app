@@ -1,49 +1,37 @@
 <script>
-	export default {
-		props: ['requestor_relationships', 'receiver_relationships'],
-		data: function() {
-			return {
-				receivedRequests: this.requestor_relationships,
-				sentRequests: this.receiver_relationships
-			}
-		},
-		methods: {
-	    declineRequest(request_id) {
-	      $.ajax({
-	        url: `/request-manager/${request_id}`,
-	        type: 'DELETE',
-	        success: data => {
-	        	this.receivedRequests = this.receivedRequests.filter(e => e.id !== request_id)
-	        	this.$emit('new-notice', 'Request declined')
-	        },
-	        error: err => console.log(err)
-	      })
-	    },
-	    acceptRequest(request_id) {
-	      $.ajax({
-	        url: `/request-manager/${request_id}`,
-	        type: 'PATCH',
-	        success: data => {
-	        	this.receivedRequests = this.receivedRequests.filter(e => e.id !== request_id)
-	          this.$emit('new-notice', 'Request accepted.') 
-	        },
-	        error: err => console.log(err)
-	      })
-	    },
-	    withdrawRequest(request_id) {
-	      $.ajax({ 
-	        url: `/request-manager/withdraw/${request_id}`,
-	        type: 'DELETE',
-	        success: data => {
-	          this.sentRequests = this.sentRequests.filter(e => e.id !== request_id)
-	          this.$emit('new-notice', 'Request withdrawn.')
-	        },
-	        error: err => console.log(err)
-	      })
-	    }
-		}
-	}
-</script>
+import { 
+  withdrawReq,
+  acceptReq,
+  declineReq 
+} from '../util/helperFunctions'
 
-<style>
-</style>
+export default {
+	props: ['requestor_relationships', 'receiver_relationships'],
+	data() {
+		return {
+			receivedRequests: this.requestor_relationships,
+			sentRequests: this.receiver_relationships
+		}
+	},
+	methods: {
+    declineRequest(req_id) {
+      declineReq(req_id, () => {
+        this.receivedRequests = this.receivedRequests.filter(e => e.id !== req_id)
+        this.$emit('new-notice', 'Request declined')     
+      })
+    },
+    acceptRequest(req_id) {
+      acceptReq(req_id, () => {
+        this.receivedRequests = this.receivedRequests.filter(e => e.id !== req_id)
+        this.$emit('new-notice', 'Request accepted.')   
+      })
+    },
+    withdrawRequest(req_id) {
+    	withdrawReq(req_id, () => {
+        this.sentRequests = this.sentRequests.filter(e => e.id !== req_id)
+        this.$emit('new-notice', 'Request withdrawn.')	    		
+    	})
+    }
+	}
+}
+</script>

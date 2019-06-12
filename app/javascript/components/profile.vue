@@ -1,6 +1,8 @@
 <script>
+import {  withdrawReq, acceptReq, declineReq } from '../util/helperFunctions'
+
 export default {
-	data: function() {
+	data() {
 		return {
 			request_message: '',
 			connection_request: this.request,
@@ -9,20 +11,15 @@ export default {
 	},
 	props: ['request', 'profile', 'user'],
   computed: {
-    isContact: function() {
+    isContact() {
       return this.current_user.profile.contacts.filter(e => e.id === this.profile.id).length !== 0
     },
-    isRequestor: function() {
+    isRequestor() {
       return this.current_user.profile.requestors.filter(e => e.id === this.profile.id).length !== 0
     },
-    isReceiver: function() {
+    isReceiver() {
       return this.current_user.profile.receivers.filter(e => e.id === this.profile.id).length !== 0
     }
-  },
-  watch: {
-  	notice: function() {
-  		return setTimeout(() => this.notice = '', 2000)
-  	}
   },
   methods: { 
     sendRequest() {
@@ -59,43 +56,25 @@ export default {
         error: (err) => console.log(err)
       })
     },
-    withdrawRequest(request_id) {
-      $.ajax({ 
-        url: `/request-manager/withdraw/${request_id}`,
-        type: 'DELETE',
-        success: data => {
-          this.current_user.profile.receivers = this.current_user.profile.receivers.filter(e => e.id !== this.profile.id)
-          this.$emit('new-notice', 'Request withdrawn.')
-        },
-        error: err => console.log(err)
+    withdrawRequest(req_id) {
+      withdrawReq(req_id, () => {
+        this.current_user.profile.receivers = this.current_user.profile.receivers.filter(e => e.id !== this.profile.id)
+          this.$emit('new-notice', 'Request withdrawn.')       
       })
     },
-    declineRequest(request_id) {
-      $.ajax({
-        url: `/request-manager/${request_id}`,
-        type: 'DELETE',
-        success: data => {
-          this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id) 
-          this.$emit('new-notice', 'Request declined')
-        },
-        error: err => console.log(err)
+    declineRequest(req_id) {
+      declineReq(req_id, () => {
+        this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id) 
+        this.$emit('new-notice', 'Request declined')     
       })
     },
-    acceptRequest(request_id) {
-      $.ajax({
-        url: `/request-manager/${request_id}`,
-        type: 'PATCH',
-        success: data => {
-          this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id)
-          this.current_user.profile.contacts.push(this.profile)
-          this.$emit('new-notice', 'Request accepted.')
-        },
-        error: err => console.log(err)
-      })
+    acceptRequest(req_id) {
+      acceptReq(req_id, () => {
+        this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id)
+        this.current_user.profile.contacts.push(this.profile)
+        this.$emit('new-notice', 'Request accepted.')
+      }) 
     }
   }
 }
 </script>
-
-<style>
-</style>	

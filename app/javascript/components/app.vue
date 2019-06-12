@@ -1,9 +1,7 @@
 <script>
 	export default {
-		data: function() {
-			return {
-				notices: []
-			}
+		data() {
+			return { notices: [] }
 		},
 		methods: {
 			addNotice(text) {
@@ -13,6 +11,3 @@
 		}
 	}
 </script>
-
-<style>
-</style>
