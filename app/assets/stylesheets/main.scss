@@ -9,17 +9,14 @@
 	margin-top: 56px;
 }
 .alert.alert-box {
-  position: absolute;
+	margin-bottom: 2px;
+}
+.alert-container {
+	top: 0;
   left: 0;
-  right: 0;	
-  top: 95px;
+  right: 0;
 }
 .avatar {
 	height: 100px;
 	width: 100px;	
-}
-@media only screen and (min-width: 540px) {
-	.alert.alert-box {
-	  top: 56px;
-	}
 }

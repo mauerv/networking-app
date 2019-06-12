@@ -1,9 +1,9 @@
 <feed 
 	:requests='<%= @profile.requestor_relationships.to_json(include: {profile: {include: :image}})%>' 
 	:contacts='<%= @profile.contacts.to_json(only: :id) %>'
-	inline-template>
+	inline-template
+	@new-notice='addNotice'>
 	<div id='feed' class='container'>
-		<p v-if='notice !== ""' class='alert alert-success alert-box'>{{ notice }}</p>
 		<div class='mb-4'>
 			<h3>Contacts</h3>
 			<a href='/contacts' class='btn btn-primary'>See My Contacts ({{ contactsNum }})</a>
@@ -34,7 +34,11 @@
 							<button class='btn btn-primary' @click='acceptRequest(request.id)'>Accept</button>
 						</div>
 					</li>
-					<a v-if='requestsNum > 3' class='btn btn-primary d-flex flex-shrink ml-auto mr-auto' href='/request-manager'> Manage All ({{ requestsNum}})</a>
+					<template v-if='requestsNum > 3'>
+						<div class='mt-2 d-flex justify-content-center'> 
+							<a class='btn btn-primary' href='/request-manager'> Manage All ({{ requestsNum}})</a>
+						</div>
+					</template>
 				</div>
 			</template>
 			<div v-else>

@@ -1,7 +1,5 @@
-profile inline-template='inline-template' :request="#{@connection_request.to_json(only: :id)}" :profile="#{@profile.to_json(only: :id)}" :user="#{current_user.to_json(only: :id, include: { profile: { only: :id, include: [ {contacts: {only: :id}},{receivers: {only: :id}}, {requestors: {only: :id}} ]}})}" 
+profile inline-template='inline-template' @new-notice=('addNotice') :request="#{@connection_request.to_json(only: :id)}" :profile="#{@profile.to_json(only: :id)}" :user="#{current_user.to_json(only: :id, include: { profile: { only: :id, include: [ {contacts: {only: :id}},{receivers: {only: :id}}, {requestors: {only: :id}} ]}})}" 
 	#profile.container
-		.alert.alert-success.alert-box v-if="notice !== ''"
-			= p "{{ notice }}"
 		#modal-window.modal.hide.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" 
 			.modal-dialog role="document" 
 				.modal-content

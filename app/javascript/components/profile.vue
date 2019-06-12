@@ -2,7 +2,6 @@
 export default {
 	data: function() {
 		return {
-			notice: '',
 			request_message: '',
 			connection_request: this.request,
 			current_user: this.user			
@@ -43,7 +42,7 @@ export default {
           this.connection_request = { id: data.id }
           this.current_user.profile.receivers.push(this.profile)
           $('#modal-window').modal('toggle')
-          this.notice = 'Request sent.'
+          this.$emit('new-notice', 'Request sent.')
         },
         error: err => console.log(err)
       })
@@ -55,7 +54,7 @@ export default {
         success: data => {
           this.connection_request = 
           this.current_user.profile.contacts = this.current_user.profile.contacts.filter(e => e.id !== this.profile.id)
-          this.notice = "Contact removed."
+          this.$emit('new-notice', 'Contact removed.')
         },
         error: (err) => console.log(err)
       })
@@ -66,7 +65,7 @@ export default {
         type: 'DELETE',
         success: data => {
           this.current_user.profile.receivers = this.current_user.profile.receivers.filter(e => e.id !== this.profile.id)
-          this.notice = "Request withdrawn."
+          this.$emit('new-notice', 'Request withdrawn.')
         },
         error: err => console.log(err)
       })
@@ -76,8 +75,8 @@ export default {
         url: `/request-manager/${request_id}`,
         type: 'DELETE',
         success: data => {
-          this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id)              
-          this.notice = "Request declined"
+          this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id) 
+          this.$emit('new-notice', 'Request declined')
         },
         error: err => console.log(err)
       })
@@ -88,8 +87,8 @@ export default {
         type: 'PATCH',
         success: data => {
           this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id)
-          this.current_user.profile.contacts.push(this.profile)           
-          this.notice = "Request accepted"  
+          this.current_user.profile.contacts.push(this.profile)
+          this.$emit('new-notice', 'Request accepted.')
         },
         error: err => console.log(err)
       })

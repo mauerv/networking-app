@@ -1,9 +1,9 @@
 <request-manager 
   :receiver_relationships='<%= @profile.receiver_relationships.to_json(include: :contact) %>'
   :requestor_relationships='<%= @profile.requestor_relationships.to_json(include: :profile) %>'
+  @new-notice='addNotice'
   inline-template>
   <div class='container'>
-    <p v-if='notice !== ""' class='alert alert-success alert-box'>{{ notice }}</p>
     <ul class='nav nav-tabs'>
       <li class='nav-item'>
         <a id='received-tab' class='nav-link active' data-toggle='tab' href='#received' role='tab' aria-controle='received' aria-selected='true'>Received</a>

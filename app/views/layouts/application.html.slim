@@ -17,5 +17,9 @@ html
       - if alert
         .alert.alert-danger= alert
       .content data-behavior="vue"
-        = yield
+        app inline-template='inline-template'
+          div
+            .position-absolute.alert-container 
+              p.alert.alert-success.alert-box v-for='notice in notices' {{ notice }}
+            = yield
       = render 'layouts/footer'

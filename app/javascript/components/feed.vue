@@ -2,7 +2,6 @@
 	export default {
 		data: function() {
 			return {
-				notice: '',
 				connection_requests: this.requests
 			}
 		},
@@ -18,11 +17,6 @@
 				return this.connection_requests.length
 			}
 		},
-	  watch: {
-	  	notice: function() {
-	  		return setTimeout(() => this.notice = '', 2000)
-	  	}
-	  },
 		methods: {
 	    declineRequest(request_id) {
 	      $.ajax({
@@ -30,7 +24,7 @@
 	        type: 'DELETE',
 	        success: data => {
 	        	this.connection_requests = this.connection_requests.filter(e => e.id !== request_id)
-	          this.notice = "Request declined"
+	        	this.$emit('new-notice', "Request declined")
 	        },
 	        error: err => console.log(err)
 	      })
@@ -41,7 +35,7 @@
 	        type: 'PATCH',
 	        success: data => {
 	        	this.connection_requests = this.connection_requests.filter(e => e.id !== request_id)
-	          this.notice = "Request accepted"  
+	        	this.$emit('new-notice', "Request accepted")
 	        },
 	        error: err => console.log(err)
 	      })

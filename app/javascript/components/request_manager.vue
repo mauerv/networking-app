@@ -4,15 +4,9 @@
 		data: function() {
 			return {
 				receivedRequests: this.requestor_relationships,
-				sentRequests: this.receiver_relationships,
-				notice: ''
+				sentRequests: this.receiver_relationships
 			}
 		},
-	  watch: {
-	  	notice: function() {
-	  		return setTimeout(() => this.notice = '', 2000)
-	  	}
-	  },
 		methods: {
 	    declineRequest(request_id) {
 	      $.ajax({
@@ -20,7 +14,7 @@
 	        type: 'DELETE',
 	        success: data => {
 	        	this.receivedRequests = this.receivedRequests.filter(e => e.id !== request_id)
-	          this.notice = "Request declined"
+	        	this.$emit('new-notice', 'Request declined')
 	        },
 	        error: err => console.log(err)
 	      })
@@ -31,7 +25,7 @@
 	        type: 'PATCH',
 	        success: data => {
 	        	this.receivedRequests = this.receivedRequests.filter(e => e.id !== request_id)
-	          this.notice = "Request accepted"  
+	          this.$emit('new-notice', 'Request accepted.') 
 	        },
 	        error: err => console.log(err)
 	      })
@@ -42,7 +36,7 @@
 	        type: 'DELETE',
 	        success: data => {
 	          this.sentRequests = this.sentRequests.filter(e => e.id !== request_id)
-	          this.notice = "Request withdrawn."
+	          this.$emit('new-notice', 'Request withdrawn.')
 	        },
 	        error: err => console.log(err)
 	      })
