@@ -12,28 +12,8 @@
 		<ul class='list-group'>
 			<template v-if='connection_requests.length !== 0'>
 				<div>
-					<li v-for='request in visibleRequests' class='list-group-item d-flex flex-column flex-md-row text-center text-md-left flex-md-wrap align-items-center'>
-						<div class='order-1'>
-							<a :href=`/profiles/${request.profile_id}`>
-								<template v-if='request.profile.image_url'>
-									<img class='mb-2 avatar' :src=`${request.profile.image_url}`>
-								</template>
-								<template v-else=''>
-									<%= image_tag 'placeholder_avatar.png', class: 'avatar' %>
-								</template>
-							</a>
-						</div>
-						<div class='order-2 mr-md-auto'>
-							<a :href=`/profiles/${request.profile.id}`>{{ request.profile.name }}</a>
-							<p class='subtitle-small mb-0'>{{ request.profile.title }}</p>
-							<small><p class='text-muted mb-0'>{{ request.profile.country }}</p></small>
-						</div>
-						<p v-if="request.request_message" class='order-3 order-md-4 w-100 bg-secondary p-3 rounded mt-md-2'>{{ request.request_message }}</p>
-						<div class='mt-1 order-4 order-md-3'>
-							<button class='btn btn-primary' @click='declineRequest(request.id)'>Ignore</button>
-							<button class='btn btn-primary' @click='acceptRequest(request.id)'>Accept</button>
-						</div>
-					</li>
+					<request-list-item v-for='request in visibleRequests' :req='request' @accept-request='acceptRequest' @decline-request='declineRequest'>
+					</request-list-item>
 					<template v-if='requestsNum > 3'>
 						<div class='mt-2 d-flex justify-content-center'> 
 							<a class='btn btn-primary' href='/request-manager'> Manage All ({{ requestsNum}})</a>

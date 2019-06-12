@@ -20,11 +20,11 @@ class Profile < ApplicationRecord
   end	
 
   def serializable_hash(options={}) 
-    if self.image.attached?
-      super(options).merge({"image_url": rails_blob_url(self.image)})
-    else
+    if !self.image.attached? 
       super(options)
-    end
+      return
+    end  
+    super(options).merge({"image_url": rails_blob_url(self.image)})
   end
 end
 
