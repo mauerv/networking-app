@@ -1,0 +1,72 @@
+<request-manager 
+  :receiver_relationships='<%= @profile.receiver_relationships.to_json(include: :contact) %>'
+  :requestor_relationships='<%= @profile.requestor_relationships.to_json(include: :profile) %>'
+  inline-template>
+  <div class='container'>
+    <p v-if='notice !== ""' class='alert alert-success alert-box'>{{ notice }}</p>
+    <ul class='nav nav-tabs'>
+      <li class='nav-item'>
+        <a id='received-tab' class='nav-link active' data-toggle='tab' href='#received' role='tab' aria-controle='received' aria-selected='true'>Received</a>
+      </li>
+      <li class='nav-item'>
+        <a id='sent-tab' class='nav-link' data-toggle='tab' href='#sent' role='tab' aria-controle='sent' aria-selected='false'>Sent</a>
+      </li>
+    </ul>
+    <div id='myTabContent' class='tab-content'>
+      <div id='received' class='tab-pane fade show active' role='tabpanel' aria-labelledby='received-tab'>
+        <ul class='list-group'>
+          <li v-for='request in receivedRequests' class='list-group-item d-flex flex-column flex-md-row text-center text-md-left flex-md-wrap align-items-center'>
+            <div class='order-1'>
+              <a :href=`/profiles/${request.profile_id}`>
+                <template v-if='request.profile.image_url'>
+                  <img class='mb-2 avatar' :src=`${request.profile.image_url}`>
+                </template>
+                <template v-else=''>
+                  <%= image_tag 'placeholder_avatar.png', class: 'avatar' %>
+                </template>
+              </a>
+            </div>
+            <div class='order-2 mr-md-auto'>
+              <a :href=`/profiles/${request.profile.id}`>{{ request.profile.name }}</a>
+              <p class='subtitle-small mb-0'>{{ request.profile.title }}</p>
+              <small><p class='text-muted mb-0'>{{ request.profile.country }}</p></small>
+            </div>
+            <p v-if="request.request_message" class='order-3 order-md-4 w-100 bg-secondary p-3 rounded mt-md-2'>{{ request.request_message }}</p>
+            <div class='mt-1 order-4 order-md-3'>
+              <button class='btn btn-primary' @click='declineRequest(request.id)'>Ignore</button>
+              <button class='btn btn-primary' @click='acceptRequest(request.id)'>Accept</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div id='sent' class='tab-pane fade' role='tabpanel' aria-labelledby='sent-tab'>
+        <ul class='list-group'>
+          <li v-for='request in sentRequests' class="list-group-item d-flex flex-md-row text-md-left flex-wrap border-right-0 border-left-0">
+            <div class="order-1 mr-auto mr-md-0">
+              <a :href=`/profiles/${request.contact_id}`>
+                <template v-if='request.contact.image_url'>
+                  <img class='mb-2 avatar' :src=`${request.contact.image_url}`>
+                </template>
+                <template v-else=''>
+                  <%= image_tag 'placeholder_avatar.png', class: 'avatar' %>
+                </template>                  
+              </a>
+            </div>
+            <div class="order-3 order-md-2 mr-md-auto w-100 w-md-auto">
+              <a :href=`/profiles/${request.contact_id}`>{{ request.contact.name }}</a>
+              <p class="mb-0 text-wrap">
+                {{ request.contact.title }}
+              </p>
+              <small class="mt-0">
+                <p>{{ request.contact.country }}</p>
+              </small>
+            </div>
+            <div class="order-2 order-md-3 align-self-center">
+              <button @click='withdrawRequest(request.id)' class='btn btn-primary'>Withdraw</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</request-manager>

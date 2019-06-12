@@ -1,21 +1,11 @@
 <script>
 	export default {
+		props: ['requestor_relationships', 'receiver_relationships'],
 		data: function() {
 			return {
-				notice: '',
-				connection_requests: this.requests
-			}
-		},
-		props: ['requests', 'contacts'],
-		computed: {
-			visibleRequests: function() {
-				return this.connection_requests.slice(0, 3)
-			},
-			contactsNum: function() {
-				return this.contacts.length
-			},
-			requestsNum: function() {
-				return this.connection_requests.length
+				receivedRequests: this.requestor_relationships,
+				sentRequests: this.receiver_relationships,
+				notice: ''
 			}
 		},
 	  watch: {
@@ -29,7 +19,7 @@
 	        url: `/request-manager/${request_id}`,
 	        type: 'DELETE',
 	        success: data => {
-	        	this.connection_requests = this.connection_requests.filter(e => e.id !== request_id)
+	        	this.receivedRequests = this.receivedRequests.filter(e => e.id !== request_id)
 	          this.notice = "Request declined"
 	        },
 	        error: err => console.log(err)
@@ -40,8 +30,19 @@
 	        url: `/request-manager/${request_id}`,
 	        type: 'PATCH',
 	        success: data => {
-	        	this.connection_requests = this.connection_requests.filter(e => e.id !== request_id)
+	        	this.receivedRequests = this.receivedRequests.filter(e => e.id !== request_id)
 	          this.notice = "Request accepted"  
+	        },
+	        error: err => console.log(err)
+	      })
+	    },
+	    withdrawRequest(request_id) {
+	      $.ajax({ 
+	        url: `/request-manager/withdraw/${request_id}`,
+	        type: 'DELETE',
+	        success: data => {
+	          this.sentRequests = this.sentRequests.filter(e => e.id !== request_id)
+	          this.notice = "Request withdrawn."
 	        },
 	        error: err => console.log(err)
 	      })

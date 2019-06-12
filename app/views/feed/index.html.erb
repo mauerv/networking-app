@@ -30,8 +30,8 @@
 						</div>
 						<p v-if="request.request_message" class='order-3 order-md-4 w-100 bg-secondary p-3 rounded mt-md-2'>{{ request.request_message }}</p>
 						<div class='mt-1 order-4 order-md-3'>
-							<a class='btn btn-primary' href='/request-manager'>Ignore</a>
-							<a class='btn btn-primary' href='/request-manager'>Accept</a>
+							<button class='btn btn-primary' @click='declineRequest(request.id)'>Ignore</button>
+							<button class='btn btn-primary' @click='acceptRequest(request.id)'>Accept</button>
 						</div>
 					</li>
 					<a v-if='requestsNum > 3' class='btn btn-primary d-flex flex-shrink ml-auto mr-auto' href='/request-manager'> Manage All ({{ requestsNum}})</a>
