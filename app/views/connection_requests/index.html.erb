@@ -37,6 +37,9 @@
               <button class='btn btn-primary' @click='acceptRequest(request.id)'>Accept</button>
             </div>
           </li>
+          <li v-if='receivedRequests.length === 0' class='list-group-item text-muted'>
+            <p >You have no pending requests.</p>
+          </li>
         </ul>
       </div>
       <div id='sent' class='tab-pane fade' role='tabpanel' aria-labelledby='sent-tab'>
@@ -65,6 +68,9 @@
               <button @click='withdrawRequest(request.id)' class='btn btn-primary'>Withdraw</button>
             </div>
           </li>
+            <li v-if='sentRequests.length === 0' class='list-group-item text-muted'>
+              <p >You haven't sent any requests.</p>
+           </li>
         </ul>
       </div>
     </div>
