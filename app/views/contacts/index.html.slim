@@ -1,9 +1,0 @@
-.container
-	h3 Contacts
-	ul.list-group
-		p.text-muted.mb-0 Showing #{@contacts.length} results
-		- @contacts.each do |c|
-			= render layout: '/shared/profile_list_item', locals: { profile: c } do 
-				div.order-2.order-md-3.align-self-center
-				= link_to 'Email', '#/', class: 'btn btn-primary' 
-	= bootstrap_pagination @contacts
