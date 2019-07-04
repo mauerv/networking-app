@@ -17,9 +17,11 @@
         <ul class='list-group'>
           <request-list-item v-for='request in receivedRequests' :req='request' @accept-request='acceptRequest' @decline-request='declineRequest'>
           </request-list-item>
-          <li v-if='receivedRequests.length === 0' class='list-group-item text-muted'>
-            <p >You have no pending requests.</p>
-          </li>
+          <template v-if='receivedRequests.length === 0'>
+            <li class='list-group-item text-muted'>
+              <p >You have no pending requests.</p>
+            </li>
+          </template>
         </ul>
       </div>
       <div id='sent' class='tab-pane fade' role='tabpanel' aria-labelledby='sent-tab'>
@@ -48,9 +50,11 @@
               <button @click='withdrawRequest(request.id)' class='btn btn-primary'>Withdraw</button>
             </div>
           </li>
-            <li v-if='sentRequests.length === 0' class='list-group-item text-muted'>
-              <p >You haven't sent any requests.</p>
-           </li>
+          <template v-if='sentRequests.length === 0'>
+            <li class='list-group-item text-muted'>
+              <p>You haven't sent any requests.</p>
+            </li>
+          </template>
         </ul>
       </div>
     </div>
