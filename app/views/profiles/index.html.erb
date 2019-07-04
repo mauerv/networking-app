@@ -17,8 +17,7 @@
           <%= link_to 'Email', '#/', class: 'btn btn-primary' %>
         <% elsif current_user.profile.receivers.include?(profile) %>
           <button class='btn btn-primary disabled'>Connect</button>
-        <% elsif current_user.profile.requestors.include?(profile) %>
-        <% else %>
+        <% elsif !current_user.profile.requestors.include?(profile) %>
           <%= link_to 'Connect', '#/', class: 'btn btn-primary' %>
         <% end %>
       <% end %>
