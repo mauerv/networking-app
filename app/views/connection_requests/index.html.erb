@@ -1,4 +1,4 @@
-<request-manager 
+<request-manager
   :receiver_relationships='<%= @profile.receiver_relationships.to_json(include: :contact) %>'
   :requestor_relationships='<%= @profile.requestor_relationships.to_json(include: :profile) %>'
   @new-notice='addNotice'
@@ -32,7 +32,7 @@
                 </template>
                 <template v-else=''>
                   <%= image_tag 'placeholder_avatar.png', class: 'avatar' %>
-                </template>                  
+                </template>
               </a>
             </div>
             <div class="order-3 order-md-2 mr-md-auto w-100 w-md-auto">
