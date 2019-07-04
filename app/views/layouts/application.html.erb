@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" />
+    <title>Prosky Communities</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <%= stylesheet_link_tag    'application' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_pack_tag 'application' %>
+  </head>
+  <body>
+    <div id='app'>
+      <%= render 'layouts/header' %>
+      <% if notice %>
+        <div class='alert alert-success'> <%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class='alert alert-danger'><%= alert %></div>
+      <% end %>
+      <div class='content' data-behavior="vue">
+        <app inline-template>
+          <div>
+            <div class='position-absolute alert-container'>
+              <template v-if='notices'>
+                <p class='alert alert-success alert-box' v-for='notice in notices'>
+                  {{ notice }}
+                </p>
+              </template>
+            </div>
+            <%= yield %>
+          </div>
+        </app>
+        <%= render 'layouts/footer' %>
+    </div>
+  </body>
+</html>
