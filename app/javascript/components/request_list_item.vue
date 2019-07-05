@@ -2,11 +2,9 @@
 	<li class='list-group-item d-flex flex-column flex-md-row text-center text-md-left flex-md-wrap align-items-center'>
 		<div class='order-1'>
 			<a :href="`/profiles/${req.profile_id}`">
-				<template v-if='req.profile.image_url'>
-					<img class='mb-2 avatar' v-bind:src="req.profile.image_url">
-				</template>
-				<template v-else=''>
-					
+				<img v-if='req.profile.image_url' v-bind:src="req.profile.image_url" class='mb-2 avatar'>
+				<template v-else>
+
 				</template>
 			</a>
 		</div>
@@ -28,4 +26,3 @@
 		props: ['req']
 	}
 </script>
-
