@@ -1,5 +1,5 @@
-<feed 
-	:requests='<%= @profile.requestor_relationships.to_json(include: {profile: {include: :image}})%>' 
+<feed
+	:requests='<%= @profile.requestor_relationships.to_json(include: {profile: {include: :image}})%>'
 	:contacts='<%= @profile.contacts.to_json(only: :id) %>'
 	inline-template
 	@new-notice='addNotice'>
@@ -10,12 +10,12 @@
 		</div>
 		<h3>Invitations</h3>
 		<ul class='list-group'>
-			<template v-if='connection_requests.length !== 0'>
+			<template v-if='connectionRequests.length !== 0'>
 				<div>
 					<request-list-item v-for='request in visibleRequests' :req='request' @accept-request='acceptRequest' @decline-request='declineRequest'>
 					</request-list-item>
 					<template v-if='requestsNum > 3'>
-						<div class='mt-2 d-flex justify-content-center'> 
+						<div class='mt-2 d-flex justify-content-center'>
 							<a class='btn btn-primary' href='/request-manager'> Manage All ({{ requestsNum}})</a>
 						</div>
 					</template>
@@ -30,4 +30,3 @@
 		</ul>
 	</div>
 </feed>
-
