@@ -23,6 +23,11 @@
 
 <script>
 	export default {
-		props: ['req']
+		props: {
+			req: {
+				type: Object,
+				required: true
+			}
+		}
 	}
 </script>

@@ -2,7 +2,20 @@
 import {  withdrawReq, acceptReq, declineReq } from '../util/helperFunctions'
 
 export default {
-	props: ['request', 'profile', 'user'],
+	props: {
+		request: {
+			type: Object,
+			required: true
+		},
+		profile: {
+			type: Object,
+			required: true
+		},
+		user: {
+			type: Object,
+			required: true
+		}
+	},
 	data() {
 		return {
 			currentUser: this.user,

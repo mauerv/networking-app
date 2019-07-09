@@ -39,7 +39,16 @@
 
 <script>
   export default {
-    props: ['profile', 'user'],
+    props: {
+      profile: {
+        type: Object,
+        required: true
+      },
+      user: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
         currentUser: this.user

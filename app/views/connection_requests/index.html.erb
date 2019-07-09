@@ -15,7 +15,12 @@
     <div id='myTabContent' class='tab-content'>
       <div id='received' class='tab-pane fade show active' role='tabpanel' aria-labelledby='received-tab'>
         <ul class='list-group'>
-          <request-list-item v-for='request in receivedRequests' :req='request' @accept-request='acceptRequest' @decline-request='declineRequest'>
+          <request-list-item
+            v-for='request in receivedRequests'
+            :req='request'
+            :key='request.id'
+            @accept-request='acceptRequest'
+            @decline-request='declineRequest'>
           </request-list-item>
           <template v-if='receivedRequests.length === 0'>
             <li class='list-group-item text-muted'>

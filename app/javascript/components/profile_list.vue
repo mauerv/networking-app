@@ -14,7 +14,16 @@
 
 <script>
 export default {
-  props: ['profiles', 'user'],
+  props: {
+    profiles: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       requestReceiverId: null,

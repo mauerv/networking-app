@@ -2,7 +2,16 @@
 import { declineReq, acceptReq } from '../util/helperFunctions'
 
 export default {
-	props: ['requests', 'contacts'],
+	props: {
+		requests: {
+			type: Array,
+			required: true
+		},
+		contacts: {
+			type: Array,
+			required: true
+		}
+	},
 	data() {
 		return {
 			connectionRequests: this.requests

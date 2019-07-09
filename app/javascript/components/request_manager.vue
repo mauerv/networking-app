@@ -1,12 +1,21 @@
 <script>
-import { 
+import {
   withdrawReq,
   acceptReq,
-  declineReq 
+  declineReq
 } from '../util/helperFunctions'
 
 export default {
-	props: ['requestor_relationships', 'receiver_relationships'],
+  props: {
+    requestor_relationships: {
+      type: Array,
+      required: true
+    },
+    receiver_relationships: {
+      type: Array,
+      required: true
+    }
+  },
 	data() {
 		return {
 			receivedRequests: this.requestor_relationships,
@@ -17,19 +26,19 @@ export default {
     declineRequest(req_id) {
       declineReq(req_id, () => {
         this.receivedRequests = this.receivedRequests.filter(e => e.id !== req_id)
-        this.$emit('new-notice', 'Request declined')     
+        this.$emit('new-notice', 'Request declined')
       })
     },
     acceptRequest(req_id) {
       acceptReq(req_id, () => {
         this.receivedRequests = this.receivedRequests.filter(e => e.id !== req_id)
-        this.$emit('new-notice', 'Request accepted.')   
+        this.$emit('new-notice', 'Request accepted.')
       })
     },
     withdrawRequest(req_id) {
     	withdrawReq(req_id, () => {
         this.sentRequests = this.sentRequests.filter(e => e.id !== req_id)
-        this.$emit('new-notice', 'Request withdrawn.')	    		
+        this.$emit('new-notice', 'Request withdrawn.')
     	})
     }
 	}
