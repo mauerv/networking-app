@@ -21,3 +21,7 @@
 	height: 100px;
 	width: 100px;
 }
+// Bootstrap customization
+.navbar-dark .navbar-toggler:focus {
+  outline: none;
+}
