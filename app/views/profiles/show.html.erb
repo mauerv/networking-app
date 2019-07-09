@@ -6,25 +6,7 @@
   :user="<%= current_user.to_json(only: :id, include: { profile: { only: :id, include: [ {contacts: {only: :id}},{receivers: {only: :id}}, {requestors: {only: :id}} ]}}) %>"
 >
   <div id='profile' class="container">
-    <div id='modal-window' class="modal hide fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" >
-      <div class="modal-dialog" role='document'>
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 id='myModalLabel' class='modal-title'>Send Request</h4>
-            <button type="button" class='close' data-dismiss='modal'>x</button>
-          </div>
-          <div class="modal-body">
-            <div class="form">
-              <div class="form-group">
-                <label>Add Optional Message</label>
-                <textarea class='form-control' v-model='request_message'></textarea>
-              </div>
-              <button class='btn btn-primary' @click='sendRequest'>Send</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <request-modal @send-request='sendRequest'></request-modal>
     <div class="row">
       <div class="col-xs-12 col-sm-6">
         <% if @profile.image.attached? %>
@@ -37,7 +19,7 @@
         <p><%= @profile.country %></p>
       </div>
       <div class='col-xs-12 col-sm-6'>
-          <template v-if='current_user.profile.id === profile.id'>
+          <template v-if='currentUser.profile.id === profile.id'>
             <div class="d-flex justify-content-start justify-content-sm-end">
               <%= link_to 'Edit', edit_profile_path(current_user.profile), class: 'btn btn-primary' %>
               <%= link_to "See Contacts (#{@profile.contacts.length})", contacts_path, class: 'btn btn-primary ml-1' %>
@@ -54,11 +36,11 @@
                   <button @click='removeContact(profile.id)' class='btn btn-primary'>Remove</button>
                 </div>
               </template>
-              <button v-else-if='isReceiver' class='btn btn-primary' @click='withdrawRequest(connection_request.id)'>Withdraw</button>
+              <button v-else-if='isReceiver' class='btn btn-primary' @click='withdrawRequest(connectionRequest.id)'>Withdraw</button>
               <template v-else-if='isRequestor'>
                 <div>
-                  <button class='btn btn-primary' @click='declineRequest(connection_request.id)'>Ignore</button>
-                  <button class='btn btn-primary' @click='acceptRequest(connection_request.id)'>Accept</button>
+                  <button class='btn btn-primary' @click='declineRequest(connectionRequest.id)'>Ignore</button>
+                  <button class='btn btn-primary' @click='acceptRequest(connectionRequest.id)'>Accept</button>
                 </div>
               </template>
               <button v-else class='btn btn-primary' data-target='#modal-window' data-toggle='modal'>Connect</button>

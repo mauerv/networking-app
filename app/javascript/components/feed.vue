@@ -2,12 +2,12 @@
 import { declineReq, acceptReq } from '../util/helperFunctions'
 
 export default {
+	props: ['requests', 'contacts'],
 	data() {
 		return {
 			connection_requests: this.requests
 		}
 	},
-	props: ['requests', 'contacts'],
 	computed: {
 		visibleRequests() {
 			return this.connection_requests.slice(0, 3)
@@ -23,13 +23,13 @@ export default {
     declineRequest(req_id) {
   		declineReq(req_id, () => {
       	this.connection_requests = this.connection_requests.filter(e => e.id !== req_id)
-      	this.$emit('new-notice', "Request declined")    		
+      	this.$emit('new-notice', "Request declined")
     	})
     },
     acceptRequest(req_id) {
   		acceptReq(req_id, () => {
       	this.connection_requests = this.connection_requests.filter(e => e.id !== req_id)
-      	this.$emit('new-notice', "Request accepted") 		
+      	this.$emit('new-notice', "Request accepted")
     	})
     }
 	}

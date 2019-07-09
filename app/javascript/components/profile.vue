@@ -4,29 +4,29 @@ import {  withdrawReq, acceptReq, declineReq } from '../util/helperFunctions'
 export default {
 	data() {
 		return {
-			current_user: this.user,
-			request_message: '',
-			connection_request: this.request,
+			currentUser: this.user,
+			requestMessage: '',
+			connectionRequest: this.request,
 		}
 	},
 	props: ['request', 'profile', 'user'],
   computed: {
     isContact() {
-      return this.current_user.profile.contacts.filter(e => e.id === this.profile.id).length !== 0
+      return this.currentUser.profile.contacts.filter(e => e.id === this.profile.id).length !== 0
     },
     isRequestor() {
-      return this.current_user.profile.requestors.filter(e => e.id === this.profile.id).length !== 0
+      return this.currentUser.profile.requestors.filter(e => e.id === this.profile.id).length !== 0
     },
     isReceiver() {
-      return this.current_user.profile.receivers.filter(e => e.id === this.profile.id).length !== 0
+      return this.currentUser.profile.receivers.filter(e => e.id === this.profile.id).length !== 0
     }
   },
   methods: {
-    sendRequest() {
+    sendRequest(message) {
       let data = {
         connection_request: {
-          "request_message": this.request_message,
-          "profile_id": this.current_user.id ,
+          "request_message": message,
+          "profile_id": this.currentUser.id ,
           "contact_id": this.profile.id
         }
       }
@@ -36,8 +36,8 @@ export default {
         type: 'post',
         data: data,
         success: data => {
-          this.connection_request = { id: data.id }
-          this.current_user.profile.receivers.push(this.profile)
+          this.connectionRequest = { id: data.id }
+          this.currentUser.profile.receivers.push(this.profile)
           $('#modal-window').modal('toggle')
           this.$emit('new-notice', 'Request sent.')
         },
@@ -49,8 +49,8 @@ export default {
         url: `/contacts/${profile_id}`,
         type: 'DELETE',
         success: data => {
-          this.connection_request = null
-          this.current_user.profile.contacts = this.current_user.profile.contacts.filter(e => e.id !== this.profile.id)
+          this.connectionRequest = null
+          this.currentUser.profile.contacts = this.currentUser.profile.contacts.filter(e => e.id !== this.profile.id)
           this.$emit('new-notice', 'Contact removed.')
         },
         error: (err) => console.log(err)
@@ -58,20 +58,20 @@ export default {
     },
     withdrawRequest(req_id) {
       withdrawReq(req_id, () => {
-        this.current_user.profile.receivers = this.current_user.profile.receivers.filter(e => e.id !== this.profile.id)
+        this.currentUser.profile.receivers = this.currentUser.profile.receivers.filter(e => e.id !== this.profile.id)
           this.$emit('new-notice', 'Request withdrawn.')
       })
     },
     declineRequest(req_id) {
       declineReq(req_id, () => {
-        this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id)
+        this.currentUser.profile.requestors = this.currentUser.profile.requestors.filter(e => e.id !== this.profile.id)
         this.$emit('new-notice', 'Request declined')
       })
     },
     acceptRequest(req_id) {
       acceptReq(req_id, () => {
-        this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id)
-        this.current_user.profile.contacts.push(this.profile)
+        this.currentUser.profile.requestors = this.currentUser.profile.requestors.filter(e => e.id !== this.profile.id)
+        this.currentUser.profile.contacts.push(this.profile)
         this.$emit('new-notice', 'Request accepted.')
       })
     }

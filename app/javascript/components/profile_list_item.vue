@@ -16,8 +16,8 @@
     	</div>
     	<div class="order-2 order-md-3 align-self-center">
         <a
-          v-if="current_user.id == profile.id"
-          :href="`/profiles/${current_user.id}/edit`"
+          v-if="currentUser.id == profile.id"
+          :href="`/profiles/${currentUser.id}/edit`"
           class='btn btn-primary'
         > Edit Profile </a>
         <a
@@ -41,19 +41,19 @@
   export default {
     data() {
       return {
-        current_user: this.user
+        currentUser: this.user
       }
     },
     props: ['profile', 'user'],
     computed: {
       isContact() {
-        return this.current_user.profile.contacts.filter(e => e.id === this.profile.id).length !== 0
+        return this.currentUser.profile.contacts.filter(e => e.id === this.profile.id).length !== 0
       },
       isRequestor() {
-        return this.current_user.profile.requestors.filter(e => e.id === this.profile.id).length !== 0
+        return this.currentUser.profile.requestors.filter(e => e.id === this.profile.id).length !== 0
       },
       isReceiver() {
-        return this.current_user.profile.receivers.filter(e => e.id === this.profile.id).length !== 0
+        return this.currentUser.profile.receivers.filter(e => e.id === this.profile.id).length !== 0
       }
     }
   }

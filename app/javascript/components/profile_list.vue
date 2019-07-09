@@ -1,33 +1,14 @@
 <template>
   <div>
     <profile-list-item
-      v-for='profile in visible_profiles'
+      v-for='profile in profiles'
       :key='profile.id'
       :profile='profile'
-      :user='current_user'
-      @create-request='updateContactId'
+      :user='currentUser'
+      @create-request='updateRequestReceiverId'
     >
     </profile-list-item>
-
-    <div id='modal-window' class="modal hide fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" >
-      <div class="modal-dialog" role='document'>
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 id='myModalLabel' class='modal-title'>Send Request</h4>
-            <button type="button" class='close' data-dismiss='modal'>x</button>
-          </div>
-          <div class="modal-body">
-            <div class="form">
-              <div class="form-group">
-                <label>Add Optional Message</label>
-                <textarea class='form-control' v-model='request_message'></textarea>
-              </div>
-              <button class='btn btn-primary' @click='sendRequest'>Send</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <request-modal @send-request='sendRequest'></request-modal>
   </div>
 </template>
 
@@ -35,20 +16,18 @@
 export default {
   data() {
     return {
-      visible_profiles: this.profiles,
-      request_message: '',
-      contact_id: null,
-      current_user: this.user
+      requestReceiverId: null,
+      currentUser: this.user
     }
   },
   props: ['profiles', 'user'],
   methods: {
-    sendRequest() {
+    sendRequest(message) {
       let data = {
         connection_request: {
-          "request_message": this.request_message,
-          "profile_id": this.current_user.id,
-          "contact_id": this.contact_id
+          "request_message": message,
+          "profile_id": this.currentUser.id,
+          "contact_id": this.requestReceiverId
         }
       }
 
@@ -57,16 +36,16 @@ export default {
         type: 'post',
         data: data,
         success: data => {
-          this.current_user.profile.receivers.push({ id: this.contact_id })
-          this.contact_id = null
+          this.currentUser.profile.receivers.push({ id: this.requestReceiverId })
+          this.requestReceiverId = null
           $('#modal-window').modal('toggle')
           this.$emit('new-notice', 'Request sent.')
         },
         error: err => console.log(err)
       })
     },
-    updateContactId(contact_id) {
-      this.contact_id = contact_id
+    updateRequestReceiverId(id) {
+      this.requestReceiverId = id
     }
   }
 }
