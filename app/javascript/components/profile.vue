@@ -2,14 +2,13 @@
 import {  withdrawReq, acceptReq, declineReq } from '../util/helperFunctions'
 
 export default {
+	props: ['request', 'profile', 'user'],
 	data() {
 		return {
 			currentUser: this.user,
-			requestMessage: '',
 			connectionRequest: this.request,
 		}
 	},
-	props: ['request', 'profile', 'user'],
   computed: {
     isContact() {
       return this.currentUser.profile.contacts.filter(e => e.id === this.profile.id).length !== 0

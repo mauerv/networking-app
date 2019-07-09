@@ -39,12 +39,12 @@
 
 <script>
   export default {
+    props: ['profile', 'user'],
     data() {
       return {
         currentUser: this.user
       }
     },
-    props: ['profile', 'user'],
     computed: {
       isContact() {
         return this.currentUser.profile.contacts.filter(e => e.id === this.profile.id).length !== 0

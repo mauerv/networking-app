@@ -14,13 +14,13 @@
 
 <script>
 export default {
+  props: ['profiles', 'user'],
   data() {
     return {
       requestReceiverId: null,
       currentUser: this.user
     }
   },
-  props: ['profiles', 'user'],
   methods: {
     sendRequest(message) {
       let data = {
