@@ -21,6 +21,8 @@
               <%=  link_to 'Profile', profile_path(current_user.profile), class: 'dropdown-item' %>
               <%= link_to 'My Account', '/account', class: 'dropdown-item' %>
               <div class="dropdown-divider"></div>
+              <%= link_to 'Requests', connection_requests_path, class: 'dropdown-item' %>
+              <div class="dropdown-divider"></div>
               <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
             </div>
           </li>
