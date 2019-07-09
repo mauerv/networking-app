@@ -1,21 +1,13 @@
 <div class="container">
-  <div id='modal-window' class='modal hide fade' aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" >
-    <div class="modal-dialog" role='document'>
-      <div class="modal-content">
-
-      </div>
-    </div>
-  </div>
   <%= bootstrap_pagination @profiles %>
   <ul class='list-group'>
     <p class='text-muted mb-0'>Showing <%= @profiles.length %> results</p>
-    <% @profiles.each do |profile| %>
-      <profile-list-item
-        :profile="<%= profile.to_json %>"
-        :user="<%= current_user.to_json(only: :id, include: { profile: { only: :id, include: [ {contacts: {only: :id}},{receivers: {only: :id}}, {requestors: {only: :id}} ]}}) %>"
-      >
-      </profile-list-item>
-    <% end %>
+    <profile-list
+      :profiles='<%= @profiles.to_json %>'
+      :user="<%= current_user.to_json(only: :id, include: { profile: { only: :id, include: [ {contacts: {only: :id}},{receivers: {only: :id}}, {requestors: {only: :id}} ]}}) %>"
+      @new-notice='addNotice'
+    >
+    </profile-list>
   </ul>
   <%= bootstrap_pagination @profiles %>
 </div>

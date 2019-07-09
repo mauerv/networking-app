@@ -4,9 +4,9 @@ import {  withdrawReq, acceptReq, declineReq } from '../util/helperFunctions'
 export default {
 	data() {
 		return {
+			current_user: this.user,
 			request_message: '',
 			connection_request: this.request,
-			current_user: this.user			
 		}
 	},
 	props: ['request', 'profile', 'user'],
@@ -21,9 +21,9 @@ export default {
       return this.current_user.profile.receivers.filter(e => e.id === this.profile.id).length !== 0
     }
   },
-  methods: { 
+  methods: {
     sendRequest() {
-      let data = {  
+      let data = {
         connection_request: {
           "request_message": this.request_message,
           "profile_id": this.current_user.id ,
@@ -49,7 +49,7 @@ export default {
         url: `/contacts/${profile_id}`,
         type: 'DELETE',
         success: data => {
-          this.connection_request = 
+          this.connection_request = null
           this.current_user.profile.contacts = this.current_user.profile.contacts.filter(e => e.id !== this.profile.id)
           this.$emit('new-notice', 'Contact removed.')
         },
@@ -59,13 +59,13 @@ export default {
     withdrawRequest(req_id) {
       withdrawReq(req_id, () => {
         this.current_user.profile.receivers = this.current_user.profile.receivers.filter(e => e.id !== this.profile.id)
-          this.$emit('new-notice', 'Request withdrawn.')       
+          this.$emit('new-notice', 'Request withdrawn.')
       })
     },
     declineRequest(req_id) {
       declineReq(req_id, () => {
-        this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id) 
-        this.$emit('new-notice', 'Request declined')     
+        this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id)
+        this.$emit('new-notice', 'Request declined')
       })
     },
     acceptRequest(req_id) {
@@ -73,7 +73,7 @@ export default {
         this.current_user.profile.requestors = this.current_user.profile.requestors.filter(e => e.id !== this.profile.id)
         this.current_user.profile.contacts.push(this.profile)
         this.$emit('new-notice', 'Request accepted.')
-      }) 
+      })
     }
   }
 }
