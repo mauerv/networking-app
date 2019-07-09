@@ -12,7 +12,12 @@
 		<ul class='list-group'>
 			<template v-if='connectionRequests.length !== 0'>
 				<div>
-					<request-list-item v-for='request in visibleRequests' :req='request' @accept-request='acceptRequest' @decline-request='declineRequest'>
+					<request-list-item
+						v-for='request in visibleRequests'
+						:req='request'
+						:key='request.id'
+						@accept-request='acceptRequest'
+						@decline-request='declineRequest'>
 					</request-list-item>
 					<template v-if='requestsNum > 3'>
 						<div class='mt-2 d-flex justify-content-center'>
