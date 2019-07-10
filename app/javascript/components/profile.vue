@@ -3,10 +3,7 @@ import {  withdrawReq, acceptReq, declineReq } from '../util/helperFunctions'
 
 export default {
 	props: {
-		request: {
-			type: Object,
-			required: true
-		},
+		request: Object,
 		profile: {
 			type: Object,
 			required: true

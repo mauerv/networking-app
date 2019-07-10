@@ -4,7 +4,7 @@
 			<a :href="`/profiles/${req.profile_id}`">
 				<img v-if='req.profile.image_url' v-bind:src="req.profile.image_url" class='mb-2 avatar'>
 				<template v-else>
-
+					<img src="placeholder_avatar.png" />
 				</template>
 			</a>
 		</div>

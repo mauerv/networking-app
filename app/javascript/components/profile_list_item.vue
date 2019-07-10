@@ -3,9 +3,9 @@
     <li class="list-group-item d-flex flex-md-row text-md-left flex-wrap border-right-0 border-left-0">
     	<div class="order-1 mr-auto mr-md-0">
         <a :href="`/profiles/${profile.id}`">
-          <img v-if='profile.image_url' v-bind:src='profile.image_url' class='mb-2 avatar'>
+          <img v-if='profile.image_url' v-bind:src='profile.image_url' class='mb-2 avatar' />
           <template v-else>
-
+            <img src='assets/placeholder_avatar.png' class='mb-2 avatar' />
           </template>
         </a>
     	</div>
