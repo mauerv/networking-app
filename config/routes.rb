@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   devise_for :users, path: '/', controllers: { registrations: "registrations" }
 
   authenticated :user do
-  	root 'feed#index', as: :authenticated_root
+  	root 'home#feed', as: :authenticated_root
   end
-	
-	root 'static_pages#home'
-  get '/account', to: 'static_pages#account'
+
+	root 'home#index'
+  get '/account', to: 'account#index'
 end
