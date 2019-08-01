@@ -15,6 +15,11 @@ class Profile < ApplicationRecord
   has_many :connections, dependent: :destroy
   has_many :contacts, through: :connections
 
+  def country_name
+    country = ISO3166::Country[country_code]
+    country.translations[I18n.locale.to_s] || country.name
+  end
+
   def remove_contact(contact)
   	self.contacts.destroy(contact)
   end
